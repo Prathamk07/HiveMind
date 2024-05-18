@@ -17,8 +17,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { PostListComponent } from './posts/post-list/post-list.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { FormsModule, NgModel } from '@angular/forms';
-import {MatExpansionModule} from '@angular/material/expansion'
+import {MatAccordion, MatExpansionModule} from '@angular/material/expansion'
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HomepageComponent } from './homepage/homepage.component';
 // import { type } from "@material-tailwind/html";
 
 @NgModule({
@@ -29,6 +30,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     RegisterpageComponent,
     HeaderComponent,
     PostListComponent,
+    HomepageComponent,
     // ThemeProvider,
     // NgModel,
   ],
@@ -42,6 +44,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatInputModule,
     MatExpansionModule,
+    MatAccordion,
     MatToolbarModule,
     // MatLabelModule,
     BrowserAnimationsModule
