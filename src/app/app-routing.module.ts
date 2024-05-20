@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { CreatePostComponent } from './posts/create-post/create-post.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 const routes: Routes = [
   { path : '' , redirectTo:'login', pathMatch:'full'},
@@ -10,6 +11,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'posts', component: CreatePostComponent },
  { path: 'edit/:id', component: CreatePostComponent },
+ 
+ { path: 'home', component: HomepageComponent }
 ];
 
 @NgModule({
