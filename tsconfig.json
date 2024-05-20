@@ -4,11 +4,6 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": false,
-<<<<<<< HEAD
-    // "noImplicitUseStrict": true,
-    // "ignoreDeprecations" : "5.0",
-=======
->>>>>>> 1adf8e486ef1a3501829ccd195ac1d596f6140e1
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
