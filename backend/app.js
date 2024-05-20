@@ -1,40 +1,44 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require('mongoose');
-const Post = require("./models/post");
+const mongoose = require("mongoose");
+
+const postsRoutes = require("./routes/posts");
+const userRoutes = require("./routes/user");
+
 const app = express();
 
-//device/google/cuttlefish_prebuilts
+mongoose
+  .connect(
+    "mongodb+srv://purva:purva123@cluster0.onuj2yr.mongodb.net/hivemind")
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-mongoose.connect('mongodb+srv://rex07:rex442525@cluster0.onuj2yr.mongodb.net/hivemind?retryWrites=true&w=majority&appName=Cluster0').then(()=>{console.log('database connected')},err=>{console.log(err)})
-// app.use('',()=>{
-// mongoose.connect('').then(()=>{
-//     console.log('database connected')
-
-// })
-// }),err=>{console.log(err)};
+app.use("/images", express.static(path.join("backend/images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 });
 
-app.post("/api/posts", (req, res, next) => {
-    const post = new Post({
-      title:req.body.title,
-      caption:req.body.content
+app.use("/api/posts", postsRoutes);
+app.use("/api/user", userRoutes);
 
+<<<<<<< HEAD
     })
     // post.save()
     post.save().then((createdPost)=>{
@@ -94,3 +98,6 @@ app.post("/api/posts", (req, res, next) => {
   
   module.exports = app;
   
+=======
+module.exports = app;
+>>>>>>> 1adf8e486ef1a3501829ccd195ac1d596f6140e1
