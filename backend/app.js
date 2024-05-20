@@ -1,76 +1,41 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require('mongoose');
-const Post = require("./models/post");
+const mongoose = require("mongoose");
+
+const postsRoutes = require("./routes/posts");
+const userRoutes = require("./routes/user");
+
 const app = express();
 
-//device/google/cuttlefish_prebuilts
+mongoose
+  .connect(
+    "mongodb+srv://purva:purva123@cluster0.onuj2yr.mongodb.net/hivemind")
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-mongoose.connect('mongodb+srv://rex07:rex442525@cluster0.onuj2yr.mongodb.net/hivemind?retryWrites=true&w=majority&appName=Cluster0').then(()=>{console.log('database connected')},err=>{console.log(err)})
-// app.use('',()=>{
-// mongoose.connect('').then(()=>{
-//     console.log('database connected')
-
-// })
-// }),err=>{console.log(err)};
+app.use("/images", express.static(path.join("backend/images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 });
 
-app.post("/api/posts", (req, res, next) => {
-    const post = new Post({
-      title:req.body.title,
-      caption:req.body.content
+app.use("/api/posts", postsRoutes);
+app.use("/api/user", userRoutes);
 
-    })
-    // post.save()
-    post.save().then(()=>{
-      console.log('pushed to database')
-    },err=>{
-      console.log(err)
-    })
-    console.log(post);
-
-    res.status(201).json({
-      message: 'Post added successfully'
-    });
-  });
-  
-  app.get("/api/posts", (req, res, next) => {
-    // const posts = [
-    //   {
-    //     id: "fadf12421l",
-    //     title: "First server-side post",
-    //     content: "This is coming from the server"
-    //   },
-    //   {
-    //     id: "ksajflaj132",
-    //     title: "Second server-side post",
-    //     content: "This is coming from the server!"
-    //   }
-    // ];
-    Post.find().then(documents=>{
-      res.status(200).json({
-        message:'Posts fetch successfully',
-        posts: documents
-      
-      })
-    })
-   
-  });
-  
-  module.exports = app;
-  
+module.exports = app;
