@@ -12,7 +12,10 @@ import { MatButtonModule} from '@angular/material/button'
 import { MatInputModule} from '@angular/material/input';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule} from '@angular/material/toolbar';
-import {MatAccordion, MatExpansionModule} from '@angular/material/expansion'
+import { MatAccordion, MatExpansionModule} from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';  
+import { MatDivider } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,7 +65,10 @@ import { AuthInterceptor} from './auth/auth-interceptor';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    MatAccordion
+    MatAccordion,
+    MatIconModule,
+    MatSidenavModule,
+    MatDivider
   ],
   providers: [ 
     provideAnimationsAsync(),

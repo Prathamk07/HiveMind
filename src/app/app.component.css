@@ -1,6 +1,12 @@
 
-main {
-    width: 40%;
-    margin: 1rem auto;
-  }
-  
+router-outlet {
+
+}
+
+.container{
+  font-family: "Comfortaa";
+  width: 60%;
+  margin: auto;
+  height: 100vh;
+  margin-top: 5%;
+}

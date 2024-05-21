@@ -5,4 +5,22 @@ mat-form-field {
   mat-spinner {
     margin: auto;
   }
-  
+  mat-card{
+    width: 70%;
+    margin: auto;
+    margin-top: 10%;
+    padding: 2% 5%;
+    font-family: "Comfortaa";
+    text-align: center;
+  }
+  h2{
+    margin-bottom: 5%;
+  }
+  mat-form-field{
+    font-family: "Comfortaa";
+  }
+  button{
+    font-family: "Comfortaa";
+    margin: auto;
+    width: 30%;
+  }

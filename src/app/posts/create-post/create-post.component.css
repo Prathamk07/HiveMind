@@ -1,9 +1,17 @@
 mat-card{
-    width: 100%;
+    width: 70%;
     margin: 5% auto 5% auto
     /* margin:auto */
     
 }
+
+.container{
+    width: 70%;
+    margin: auto;
+    margin-top: 2%;
+    text-align: center;
+}
+
 mat-form-field,
 textarea{
     width: 100%;
@@ -14,6 +22,22 @@ mat-raised-color
 /* .mat-accent{
     background-color: black;
 } */
+
+.container-padding{
+    margin-top: 10%;
+}
+
+mat-form-field{
+    padding-top: 2%;
+    font-family: "Comfortaa";
+    font-weight: 500;
+}
+button{
+    align-items: center;
+    margin: auto;
+    padding: 0;
+    text-align: center;
+}
 mat-raised-button,
 button{
     display: block;
@@ -23,7 +47,7 @@ button{
     margin: 2% auto ;
     padding : 2% 4%;
     text-align: center;
-    
+    font-family: "Comfortaa";
     border-radius:10px;
     background-color: #ffd343;
 }

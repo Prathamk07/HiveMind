@@ -10,4 +10,8 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'client';
+  events: string[] = [];
+  opened: boolean;
+
+  shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
 }

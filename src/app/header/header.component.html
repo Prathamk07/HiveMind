@@ -1,17 +1,68 @@
 <mat-toolbar color="accent">
-    <div class="logo">
+    <!--<div class="logo">
         <a routerLink="/home"  class="logo"> 
         <img src="../../assets/hivemind1.png" width="100" alt="">
         <div>
             HiveMind
         </div>
     </a>
-    </div>
+    </div>-->
+
+    <button class="menubutton"
+    mat-icon-button
+    *ngIf="sidenav.mode === 'over'"
+    (click)="sidenav.toggle()"
+  ><div style="width: 25%;">
+
+    <mat-icon class="white" color="accent" *ngIf="!sidenav.opened"> menu </mat-icon>
+    <mat-icon class="white" color="accent" *ngIf="sidenav.opened"> close </mat-icon>
+  </div>
+  </button>
+
+  <div class="flexlogo">
+    <a href="/home" style="font-weight: 900; color: brown;"><img src="../../assets/hivemindpng.png" class="imglogo" alt=""></a>
+ </div>
 
     <div>
-        <a mat-button routerLink="/posts" routerLinkActive="mat-accent" mat-raised-button>New Post</a>
-        <a mat-button routerLink="/login" routerLinkActive="mat-accent" mat-raised-button>Login</a>
-        <a mat-button routerLink="/signup" routerLinkActive="mat-accent" mat-raised-button>Signup</a>
+        <a *ngIf="!userIsAuthenticated" href="/login" mat-button>Login</a>
+        <a *ngIf="!userIsAuthenticated" href="/signup" mat-button>Signup</a>
+        <a *ngIf="userIsAuthenticated" href="/posts" mat-button >New Post</a>
+        <a *ngIf="userIsAuthenticated" (click)="onLogout()" mat-button >Logout</a>
     </div>      
+
+    <mat-sidenav #sidenav="matSidenav" color="accent" class="sidebar">
+        <div class="sidenavcontent">
+          
+          <img
+          class="avatar mat-elevation-z8"
+          src="https://source.unsplash.com/c_GmwfHBDzk/200x200"
+          />
+          
+          <h4 class="name">John Smith</h4>
+          <p class="designation">Software Engineer</p>
+          
+          <mat-divider></mat-divider>
+            
+                <button mat-button class="menu-button" routerLink="/home">
+                  <mat-icon class="bulleticons" color="accent">home</mat-icon>
+                  <a>Home</a>
+                </button>
+                <button mat-button class="menu-button" routerLink="/profile">
+                  <mat-icon class="bulleticons" color="accent">person</mat-icon>
+                  <a>Profile</a>
+                </button>
+                <button mat-button class="menu-button" routerLink="/about">
+                  <mat-icon class="bulleticons" color="accent">info</mat-icon>
+                  <a>About</a>
+                </button>
+                
+                <mat-divider></mat-divider>
+                
+                <button mat-button class="menu-button" routerLink="/help">
+                  <mat-icon>help</mat-icon>
+                  <a>Help</a>
+                </button>
+              </div>
+            </mat-sidenav>
     
 </mat-toolbar>

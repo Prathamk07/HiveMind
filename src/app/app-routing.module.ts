@@ -4,19 +4,20 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { CreatePostComponent } from './posts/create-post/create-post.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path : '' , redirectTo:'login', pathMatch:'full'},
+  { path : '' , redirectTo:'home', pathMatch:'full'},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent},
-  { path: 'posts', component: CreatePostComponent },
- { path: 'edit/:id', component: CreatePostComponent },
- 
- { path: 'home', component: HomepageComponent }
+  { path: 'posts', component: CreatePostComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:id', component: CreatePostComponent, canActivate: [AuthGuard]  },
+  { path: 'home', component: HomepageComponent, canActivate: [AuthGuard]  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
