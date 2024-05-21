@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
+import { AuthService } from "../../auth/auth.service";
 import { PostsService } from "../posts.service";
 import { Post } from "../post.model";
 
@@ -13,17 +13,24 @@ import { Post } from "../post.model";
 export class CreatePostComponent implements OnInit {
   enteredTitle = "";
   enteredContent = "";
-
+  isLoggedin = false
   post : Post;
   mode = "create";
   postId: string='';
 
   constructor(
     public postsService: PostsService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public authService:AuthService,
+    public router : Router
   ) {}
 
   ngOnInit() {
+
+        
+    if(!this.authService.getIsAuth()){
+      this.router.navigate(['/login'])
+    }
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if(paramMap.get("id")!==null){
         this.mode = "edit";

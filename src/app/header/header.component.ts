@@ -12,15 +12,17 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy{
   sidenav!: MatSidenav;
   userIsAuthenticated = false;
-  private authListenerSubs: Subscription;
+  authListenerSubs:boolean
 
-  constructor(private authService: AuthService,private observer: BreakpointObserver, private router: Router){}
+  constructor(private authService: AuthService,private observer: BreakpointObserver, private router: Router){
+    
+  }
   ngOnInit(): void {
+    this.userIsAuthenticated=this.authService.getIsAuth()
     this.authListenerSubs = this.authService
     .getAuthStatusListener()
-    .subscribe(isAuthenticated => {
-      this.userIsAuthenticated = isAuthenticated;
-    });
+    
+  
   }
 
   onLogout(){
@@ -28,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-    this.authListenerSubs.unsubscribe();
+    this.authListenerSubs=false
 
   }
 }

@@ -4,7 +4,7 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { FormsModule, NgModel } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
-
+// import { AuthInterceptor } from './auth/auth-interceptor';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatCardModule} from '@angular/material/card'
 import { MatFormFieldModule, } from '@angular/material/form-field'
@@ -30,7 +30,7 @@ import { PostListComponent } from './posts/post-list/post-list.component'
 // import {MatAccordion, MatExpansionModule} from '@angular/material/expansion'
 // import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './homepage/homepage.component';
-import { AuthInterceptor} from './auth/auth-interceptor';
+// import { AuthInterceptor} from './auth/auth-interceptor';
 
 
 
@@ -72,9 +72,7 @@ import { AuthInterceptor} from './auth/auth-interceptor';
   ],
   providers: [ 
     provideAnimationsAsync(),
-    {provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi:true}
+   
   ],
   bootstrap: [AppComponent]
 })

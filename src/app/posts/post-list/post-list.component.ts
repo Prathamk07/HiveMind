@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
 import { AuthService } from "../../auth/auth.service";
+import { Route, Router } from "@angular/router";
 
 @Component({
   selector: "app-post-list",
@@ -18,12 +19,16 @@ export class PostListComponent implements OnInit, OnDestroy {
   // ];
   posts: Post[] = [];
   userIsAuthenticated = false;
-  private postsSub!: Subscription;
-  private authStatusSub: Subscription;
+  postsSub!: Subscription;
+  authStatusSub:boolean
 
-  constructor(public postsService: PostsService, private authService: AuthService) {}
-
+  constructor(public postsService: PostsService, private authService: AuthService,private router : Router) {
+    
+  }
+  
   ngOnInit() {
+
+  
     this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((posts: Post[]) => {
@@ -31,11 +36,12 @@ export class PostListComponent implements OnInit, OnDestroy {
         console.log(this.posts)
       });
       this.userIsAuthenticated = this.authService.getIsAuth();
+      if(this.userIsAuthenticated===false){
+        this.router.navigate(['login'])
+      }
       this.authStatusSub = this.authService
       .getAuthStatusListener()
-      .subscribe(isAuthenticated =>{
-        this.userIsAuthenticated = isAuthenticated;
-      });
+   
     }
 
   
@@ -44,6 +50,6 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.postsSub.unsubscribe();
-    this.authStatusSub.unsubscribe();
+    this.authStatusSub=false
   }
 }

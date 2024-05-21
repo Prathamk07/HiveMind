@@ -33,7 +33,7 @@ const MIME_TYPE_MAP = {
 
 router.post(
   "",
-  checkAuth,
+  // checkAuth,
   // multer({ storage: storage }).single("image"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");

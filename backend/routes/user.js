@@ -54,6 +54,7 @@ router.post("/login", (req, res, next) => {
         "secret_this_should_be_longer",
       );
       console.log(token);
+      res.cookie('cookie',token)
       res.status(200).json({
         token: token,
       });
