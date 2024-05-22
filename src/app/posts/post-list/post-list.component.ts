@@ -18,6 +18,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   //   { title: "Third Post", content: "This is the third post's content" }
   // ];
   posts: Post[] = [];
+  isLoading = false;
   userIsAuthenticated = false;
   postsSub!: Subscription;
   authStatusSub:boolean
@@ -27,11 +28,12 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit() {
-
-  
+    this.isLoading = true;
     this.postsService.getPosts();
-    this.postsSub = this.postsService.getPostUpdateListener()
+    this.postsSub = this.postsService
+      .getPostUpdateListener()
       .subscribe((posts: Post[]) => {
+        this.isLoading = false;
         this.posts = posts;
         console.log(this.posts)
       });
@@ -46,6 +48,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   
   onDelete(postId: string) {
+    this.isLoading = true;
     this.postsService.deletePost(postId);
   }
   ngOnDestroy() {
