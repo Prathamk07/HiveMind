@@ -31,14 +31,14 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      title: new FormControl(null, {
-      validators: [Validators.required, Validators.minLength(3)]
-    }),
-      content : new FormControl(null, { validators: [Validators.required]}),
+      content : new FormControl(''),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
-      })
+      
+    }),
+      
+      
     });
   
         
@@ -55,7 +55,7 @@ export class CreatePostComponent implements OnInit {
         this.post = (this.postsService.getPost(this.postId))
         this.isLoading = false;
         this.form.setValue({
-          title: this.post.title,
+          // title: this.post.title,
           content: this.post.content,
           image: this.post.imagePath
         })
@@ -85,7 +85,7 @@ export class CreatePostComponent implements OnInit {
       this.isLoading = true;
       if (this.mode === "create") {
         this.postsService.addPost(
-          this.form.value.title, 
+          // this.form.value.title, 
           this.form.value.content,
           this.form.value.image
         );
@@ -94,7 +94,7 @@ export class CreatePostComponent implements OnInit {
         //console.log(this.postId),
         this.postsService.updatePost(
           this.postId,
-          this.form.value.title,
+          // this.form.value.title,
           this.form.value.content,
           this.form.value.image
         );
