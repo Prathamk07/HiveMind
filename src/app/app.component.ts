@@ -12,6 +12,15 @@ export class AppComponent {
   title = 'client';
   events: string[] = [];
   opened: boolean;
+  userAuth : boolean=false
+  // authEvent
+  constructor(){
+    
+  }
+  loggedin(){
 
-  shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
+    this.userAuth=true
+    console.log("User loggedin", this.userAuth)
+  }
+
 }

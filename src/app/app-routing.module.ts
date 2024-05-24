@@ -4,6 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { CreatePostComponent } from './posts/create-post/create-post.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { AuthService } from './auth/auth.service';
 // import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -20,4 +21,9 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  
+  constructor(private authService : AuthService){
+
+  }
+ }

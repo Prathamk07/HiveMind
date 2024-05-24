@@ -5,7 +5,7 @@ import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
 import { AuthService } from "../../auth/auth.service";
 import { Route, Router } from "@angular/router";
-
+import { CdkVirtualScrollViewport } from "@angular/cdk/scrolling";
 @Component({
   selector: "app-post-list",
   templateUrl: "./post-list.component.html",
@@ -26,9 +26,10 @@ export class PostListComponent implements OnInit, OnDestroy {
   constructor(public postsService: PostsService, private authService: AuthService,private router : Router) {
     
   }
-  
+
   ngOnInit() {
     this.isLoading = true;
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.postsService.getPosts();
     this.postsSub = this.postsService
       .getPostUpdateListener()
@@ -37,12 +38,10 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.posts = posts;
         console.log(this.posts)
       });
-      this.userIsAuthenticated = this.authService.getIsAuth();
       if(this.userIsAuthenticated===false){
         this.router.navigate(['login'])
       }
-      this.authStatusSub = this.authService
-      .getAuthStatusListener()
+      
    
     }
 

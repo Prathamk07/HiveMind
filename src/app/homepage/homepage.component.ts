@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
@@ -8,10 +9,18 @@ import { Router } from '@angular/router';
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent {
+  @Output() authEvent = new EventEmitter<boolean>();
 constructor(private authService:AuthService,private router: Router){
   
   if(!this.authService.getIsAuth){
     this.router.navigate(['login'])
+    this.authEvent.emit(false)
+
+  }else{
+    this.authEvent.emit(true)
   }
+  
 }
+
+
 }

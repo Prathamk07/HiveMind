@@ -9,8 +9,9 @@
     </div>-->
 
     <button class="menubutton"
+    
     mat-icon-button
-    *ngIf="sidenav.mode === 'over'"
+    *ngIf="sidenav.mode === 'over' && userIsAuthenticated"
     (click)="sidenav.toggle()"
   ><div style="width: 25%;">
 
@@ -18,16 +19,18 @@
     <mat-icon class="white" color="accent" *ngIf="sidenav.opened"> close </mat-icon>
   </div>
   </button>
+<button style="visibility: hidden;" *ngIf="!userIsAuthenticated">
 
+</button>
   <div class="flexlogo">
     <a href="/home" style="font-weight: 900; color: brown;"><img src="../../assets/hivemindpng.png" class="imglogo" alt=""></a>
  </div>
 
     <div>
-        <a *ngIf="!userIsAuthenticated" href="/login" mat-button>Login</a>
-        <a *ngIf="!userIsAuthenticated" href="/signup" mat-button>Signup</a>
-        <a *ngIf="userIsAuthenticated" href="/posts" mat-button >New Post</a>
-        <a *ngIf="userIsAuthenticated" (click)="onLogout()" mat-button >Logout</a>
+        <a *ngIf="!loggedin" href="/login" mat-button>Login</a>
+        <a *ngIf="!loggedin" href="/signup" mat-button>Signup</a>
+        <a *ngIf="loggedin" href="/posts" mat-button >New Post</a>
+        <a *ngIf="loggedin" (click)="onLogout()" mat-button >Logout</a>
     </div>      
 
     <mat-sidenav #sidenav="matSidenav" color="accent" class="sidebar">

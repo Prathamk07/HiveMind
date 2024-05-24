@@ -16,6 +16,8 @@ import { MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';  
 import { MatDivider } from '@angular/material/divider';
+import { CdkVirtualScrollViewport, ScrollingModule } from "@angular/cdk/scrolling";
+import {CookieService} from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,6 +49,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     PostListComponent,
     HomepageComponent,
     // ThemeProvider,
+    
     // NgModel,
   ],
   imports: [
@@ -68,7 +71,11 @@ import { HomepageComponent } from './homepage/homepage.component';
     MatAccordion,
     MatIconModule,
     MatSidenavModule,
-    MatDivider
+    MatDivider,
+    CdkVirtualScrollViewport,
+    ScrollingModule,
+    // CookieService
+   
   ],
   providers: [ 
     provideAnimationsAsync(),

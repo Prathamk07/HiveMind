@@ -5,8 +5,9 @@ router-outlet {
 
 .container{
   font-family: "Comfortaa";
-  width: 60%;
+  /* width: 60%; */
   margin: auto;
-  height: 100vh;
-  margin-top: 5%;
+  /* height: 100vh; */
+  /* margin-top: 5%; */
+  /* overflow-y: hidden; */
 }

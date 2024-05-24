@@ -13,14 +13,22 @@ export class HeaderComponent implements OnInit, OnDestroy{
   sidenav!: MatSidenav;
   userIsAuthenticated = false;
   authListenerSubs:boolean
+loggedin=false
 
   constructor(private authService: AuthService,private observer: BreakpointObserver, private router: Router){
-    
+    // window.location.reload()
   }
   ngOnInit(): void {
     this.userIsAuthenticated=this.authService.getIsAuth()
-    this.authListenerSubs = this.authService
-    .getAuthStatusListener()
+    if(this.userIsAuthenticated==true){
+      this.loggedin=true
+      // this.authService.reload()
+    }else{
+      this.loggedin=false
+      // window.location.reload()
+      // location.reload()
+    }
+    
     
   
   }
