@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 
 const Post = require("../models/post");
-const checkAuth = require("../middleware/check-auth");
+// const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
@@ -39,9 +39,11 @@ router.post(
     const url = req.protocol + "://" + req.get("host");
     const post = new Post({
       // title: req.body.title,
+      userId : req.body.userId,
       caption: req.body.content,
        imagePath: url + "/images/" + req.file.filename
     });
+    // console.log
     post.save().then(createdPost => {
       res.status(201).json({
         message: "Post added successfully",

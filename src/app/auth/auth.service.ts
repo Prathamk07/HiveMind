@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 // import { AuthData } from "./auth-data.model";
-import { Subject } from "rxjs";
+import { Subject, map } from "rxjs";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 
@@ -10,11 +10,14 @@ import { CookieService } from "ngx-cookie-service";
 export class AuthService {
   private isAuthenticated = false;
  private token: string=''
+ profile : any
  load =0
+ user:any
  private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router, private cookieService : CookieService) {
     if(cookieService.get('token')){
+      this.user=this.getProfile()
       this.isAuthenticated=true
     }
     else{
@@ -48,13 +51,40 @@ export class AuthService {
     location.reload()
   }
 
+fetchProfile(){
+  
+  this.http.get<{ message: string; user: any }>("http://localhost:3000/api/user/profile")
+  // .pipe(
+  //   map(userData => {
+  //     return userData.user.map((user: { username: any; email: any; _id: any;}) => {
+  //       return {
+  //         // title: post.title,
+  //         username: user.username,
+  //         id: user._id,
+  //         email: user.email
+  //       };
+  //     });
+  //   })
+  // ) 
+    .subscribe(userData=> {
+      this.profile = userData.user
+      console.log(userData.user.userId)
+      // return this.profile
+    });
+  }
+getProfile(){
+  // console.log(this.profile)
+  this.fetchProfile()
+  return this.profile
+}
+
   login(email: string, password: string) {
     const authData = {email: email, password: password};
     this.http
       .post<{token: string}>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
         const token = response.token;
-        console.log(token)
+        // console.log(token)
         // this.token = token;
         if (token!==''){
           this.cookieService.set('token',token)
@@ -62,7 +92,8 @@ export class AuthService {
           // this.authStatusListener.next(true);
           // this.saveAuthData(token);
           this.load=0
-          
+       
+          console.log(this.user)
           this.router.navigate(["/home"]).then(()=>{
             window.location.reload()
           });

@@ -3,9 +3,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
-
+const cookies = require('cookie-parser')
 const router = express.Router();
 
+router.use(cookies())
+
+let userToken = ''
 router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
@@ -27,6 +30,19 @@ router.post("/signup", (req, res, next) => {
       });
   });
 });
+
+router.get('/profile',(req,res,next)=>{
+ 
+  console.log('usertoken : ',userToken)
+  decryptedToken=jwt.verify(userToken,"secret_this_should_be_longer",(err,userData)=>{
+    if (err) throw err
+
+    res.json({message: "User Fetched",
+      user:userData
+    })
+  })
+})  
+
  
 router.post("/login", (req, res, next) => {
   let fetchedUser;
@@ -49,11 +65,11 @@ router.post("/login", (req, res, next) => {
           message: "Auth failed"
         });
       }
-      const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id },"secret_this_should_be_longer");
-      console.log(token);
-      res.cookie('cookie',token)
+      userToken = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id },"secret_this_should_be_longer");
+      console.log(userToken);
+      res.cookie('cookie',userToken)
       res.status(200).json({
-        token: token,
+        token: userToken,
       });
     })
     .catch(err => {

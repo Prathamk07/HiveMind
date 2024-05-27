@@ -21,7 +21,7 @@ export class CreatePostComponent implements OnInit {
   imagePreview: string;
   private mode = "create";
   private postId: string='';
-
+  user:any
   constructor(
     public postsService: PostsService,
     public route: ActivatedRoute,
@@ -31,11 +31,11 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      content : new FormControl(''),
+      content : new FormControl(),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
-      
+    
     }),
       
       
@@ -67,6 +67,11 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
+  getProfile(){
+    this.user=this.authService.getProfile()
+    console.log(this.user.userId)
+  }
+
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -83,18 +88,21 @@ export class CreatePostComponent implements OnInit {
       return;
     }
       this.isLoading = true;
+      this.getProfile()
       if (this.mode === "create") {
         this.postsService.addPost(
+          this.user.userId,
           // this.form.value.title, 
           this.form.value.content,
           this.form.value.image
         );
-        //console.log('create mode')
+        console.log(this.user.userId)
       } else {
-        //console.log(this.postId),
+        console.log(this.form.value.content),
         this.postsService.updatePost(
           this.postId,
           // this.form.value.title,
+          this.user.userId,
           this.form.value.content,
           this.form.value.image
         );

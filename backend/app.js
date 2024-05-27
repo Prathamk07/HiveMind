@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const cookies = require('cookie-parser')
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 
@@ -17,7 +17,7 @@ mongoose
   .catch(() => {
     console.log("Connection failed!");
   });
-
+app.use(cookies())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join("backend/images")));

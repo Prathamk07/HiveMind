@@ -5,6 +5,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { CreatePostComponent } from './posts/create-post/create-post.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AuthService } from './auth/auth.service';
+import { ProfileComponent } from './auth/profile/profile.component';
 // import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'posts', component: CreatePostComponent},
   { path: 'edit/:id', component: CreatePostComponent  },
-  { path: 'home', component: HomepageComponent  }
+  { path: 'home', component: HomepageComponent  },
+  {path: 'profile', component : ProfileComponent}
 ];
 
 @NgModule({

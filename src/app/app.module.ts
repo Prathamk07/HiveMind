@@ -32,6 +32,7 @@ import { PostListComponent } from './posts/post-list/post-list.component'
 // import {MatAccordion, MatExpansionModule} from '@angular/material/expansion'
 // import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './homepage/homepage.component';
+import { ProfileComponent } from './auth/profile/profile.component';
 // import { AuthInterceptor} from './auth/auth-interceptor';
 
 
@@ -48,6 +49,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     HeaderComponent,
     PostListComponent,
     HomepageComponent,
+    ProfileComponent,
     // ThemeProvider,
     
     // NgModel,
