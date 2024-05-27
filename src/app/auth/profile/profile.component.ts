@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ProfileComponent {
   username='Pratham'
+  fullname="Pratham Kalra"
+  email='prathamkalra418@gmail.com'
+  emailverified =false
 }

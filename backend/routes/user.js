@@ -13,7 +13,10 @@ router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
       email: req.body.email,
-      password: hash
+      password: hash,
+      username : req.body.username,
+      dob : req.body.dob,
+      fullname : req.body.fullname
     });
     user
       .save()
@@ -36,7 +39,7 @@ router.get('/profile',(req,res,next)=>{
   console.log('usertoken : ',userToken)
   decryptedToken=jwt.verify(userToken,"secret_this_should_be_longer",(err,userData)=>{
     if (err) throw err
-
+    console.log("User fetched" , userData)
     res.json({message: "User Fetched",
       user:userData
     })
@@ -65,7 +68,7 @@ router.post("/login", (req, res, next) => {
           message: "Auth failed"
         });
       }
-      userToken = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id },"secret_this_should_be_longer");
+      userToken = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id ,fullname : fetchedUser.fullname,dob : fetchedUser.dob,username:fetchedUser.username},"secret_this_should_be_longer");
       console.log(userToken);
       res.cookie('cookie',userToken)
       res.status(200).json({

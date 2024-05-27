@@ -37,14 +37,15 @@ export class AuthService {
   }
 
 
-  createUser(email: string, password: string) {
-    const authData= {email: email, password: password};
+  createUser(email: string, password: string,fullname:string,dob:string,username:string) {
+    const authData= {email: email, password: password,fullname:fullname,dob:dob,username:username};
     //post send req to backend (api/user/signup accept request)
     this.http
       .post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
         console.log(response);
       });
+      this.router.navigate['/login']
   }
 
   reload(){

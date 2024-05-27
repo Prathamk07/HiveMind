@@ -12,6 +12,18 @@
       <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput name="fullname" ngModel type="text" placeholder="Full Name" #fullnameInput="ngModel" required fullname>
+      <mat-error *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="username" ngModel type="text" placeholder="User Name" #fullnameInput="ngModel" required username>
+      <mat-error *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="dob" ngModel type="date" placeholder="Date of Birth" #dobInput="ngModel" required dob>
+      <mat-error *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</mat-error>
+    </mat-form-field>
     <div style="display: flex; justify-content: center;">
 
       <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
