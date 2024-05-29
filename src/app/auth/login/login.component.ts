@@ -31,4 +31,16 @@ export class LoginComponent {
     this.isLoading = true;
     this.authService.login(form.value.email, form.value.password);
   }
+
+  onCreateAccountClick(){
+    this.router.navigate(['/signup'])
+  }
+
+  onForgotPasswordClick(){
+    this.router.navigate(['forgot-password'])
+  }
+
+  signInWithGoogle(){
+  }
+  
 }

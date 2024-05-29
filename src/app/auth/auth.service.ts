@@ -118,5 +118,24 @@ getProfile(){
     
   }
 
-
+  forgotpassword(email: string){
+    const authData = {email: email};
+    this.http
+    .post<{token: string}>("http://localhost:3000/api/user/forgotpassword", authData)
+    .subscribe(response => {
+      const token = response.token;
+      if (token!==''){
+        this.cookieService.set('token',token)
+        this.isAuthenticated = true;
+        this.load=0
+  
+        this.router.navigate(["/resetpassword"]).then(()=>{
+          window.location.reload()
+          });
+          }
+          else{
+            alert('no token')
+            }
+  });
+  }
 }

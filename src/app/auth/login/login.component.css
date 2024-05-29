@@ -26,3 +26,14 @@ h2{
   margin-bottom: 5%;
   text-align: center;
 }
+mat-card-actions{
+  margin: auto;
+  text-align: left;
+}
+p{
+  text-align: center;
+}
+img{
+  width: 5%;
+  text-align: left;
+}

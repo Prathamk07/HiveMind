@@ -33,6 +33,7 @@ import { PostListComponent } from './posts/post-list/post-list.component'
 // import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ProfileComponent } from './auth/profile/profile.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 // import { AuthInterceptor} from './auth/auth-interceptor';
 
 
@@ -50,6 +51,7 @@ import { ProfileComponent } from './auth/profile/profile.component';
     PostListComponent,
     HomepageComponent,
     ProfileComponent,
+    ForgotPasswordComponent,
     // ThemeProvider,
     
     // NgModel,

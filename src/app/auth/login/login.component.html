@@ -1,18 +1,39 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+
   <h2>Log In to your account</h2>
+
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+
     <mat-form-field>
       <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
       <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
     </mat-form-field>
+
     <mat-form-field>
       <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
-    <div style="width: 100%; display: flex; justify-content: center;">
 
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
+    <mat-card-actions align="end">
+      <button mat-flat-button (click)="onForgotPasswordClick()">Forgot Password?</button>
+    </mat-card-actions>
+
+    <div style="width: 100%; display: flex; justify-content: center;">
+      <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
     </div>
+
+    <p >
+      or
+    </p>
+
+    <div style="width: 100%; display: flex; justify-content: center;">
+      <img src="../../../assets/google.png"><button mat-flat-button (click)="signInWithGoogle()" type="submit" *ngIf="!isLoading">Login With Google</button>
+    </div>
+
+  <mat-card-actions >
+    Don’t have an account yet ?<button mat-flat-button (click)="onCreateAccountClick()">Create an Account</button>
+  </mat-card-actions>
+  
   </form>
 </mat-card>
