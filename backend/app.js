@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const cookies = require('cookie-parser')
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
-
+const cors = require('cors')
 const app = express();
 
 mongoose
@@ -34,7 +34,10 @@ app.use((req, res, next) => {
   );
   next();
 });
-
+app.use(cors({
+  origin: 'http://localhost:4200',
+  credentials: true
+}));
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 

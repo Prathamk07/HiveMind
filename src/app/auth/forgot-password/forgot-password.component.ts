@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { NgForm } from '@angular/forms';
+import { NgForm,ReactiveFormsModule,FormGroup,FormBuilder,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,8 +9,8 @@ import { NgForm } from '@angular/forms';
   styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent implements OnInit {
-  //forgetForm !: FormGroup;
-  //fb = inject(FormBuilder);
+  forgetForm !: FormGroup;
+  fb = inject(FormBuilder);
 
   isLoading = false;
   loggedin=false;
@@ -18,9 +18,10 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private router: Router,public authService: AuthService){}
   
   ngOnInit(): void {
-   // this.forgetForm = this.fb.group({
-     // email: ['', Validators.compose([Validators.required, Validators.email])]
-    //})
+   this.forgetForm = this.fb.group({
+     email: ['', Validators.compose([Validators.required, Validators.email])]
+     
+    })
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.loggedin=this.authService.getIsAuth() 

@@ -10,6 +10,7 @@ import { CookieService } from "ngx-cookie-service";
 export class AuthService {
   private isAuthenticated = false;
  private token: string=''
+ resetToken=''
  profile : any
  load =0
  user:any
@@ -123,19 +124,45 @@ getProfile(){
     this.http
     .post<{token: string}>("http://localhost:3000/api/user/forgotpassword", authData)
     .subscribe(response => {
-      const token = response.token;
-      if (token!==''){
-        this.cookieService.set('token',token)
+      this.resetToken = response.token;
+      if (this.resetToken!==''){
+        this.cookieService.set('resetToken',this.resetToken)
         this.isAuthenticated = true;
         this.load=0
   
-        this.router.navigate(["/resetpassword"]).then(()=>{
-          window.location.reload()
-          });
+        // this.router.navigate(["/resetpassword"]).then(()=>{
+          // window.location.reload()
+          // });
           }
           else{
             alert('no token')
             }
+  });
+  }
+
+  resetPassword(password : string){
+    const authData = {password: password};
+    // console.log(this.user.email)
+    // const resetToken=
+const token=this.router.url
+// console.log()
+    this.http
+    .put("http://localhost:3000/api/user"+token, authData)
+    .subscribe(response => {
+      // const token = response.token;
+      // if (token!==''){
+      //   this.cookieService.set('token',token)
+      //   this.isAuthenticated = true;
+      //   this.load=0
+  
+      //   // this.router.navigate(["/resetpassword"]).then(()=>{
+      //     // window.location.reload()
+      //     // });
+      //     }
+      //     else{
+      //       alert('no token')
+      //       }
+      alert("Password has been resetted. You can log in again")
   });
   }
 }

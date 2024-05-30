@@ -34,6 +34,7 @@ import { PostListComponent } from './posts/post-list/post-list.component'
 import { HomepageComponent } from './homepage/homepage.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetComponent } from './auth/reset/reset.component';
 // import { AuthInterceptor} from './auth/auth-interceptor';
 
 
@@ -52,6 +53,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     HomepageComponent,
     ProfileComponent,
     ForgotPasswordComponent,
+    ResetComponent,
     // ThemeProvider,
     
     // NgModel,
