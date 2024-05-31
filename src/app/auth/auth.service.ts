@@ -14,11 +14,17 @@ export class AuthService {
  profile : any
  load =0
  user:any
+//  username : string
+//  email : string
+//  fullname : string
+//  emailverified : boolean
+
  private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router, private cookieService : CookieService) {
     if(cookieService.get('token')){
       this.user=this.getProfile()
+      this.fetchProfile()
       this.isAuthenticated=true
     }
     else{
@@ -39,7 +45,7 @@ export class AuthService {
 
 
   createUser(email: string, password: string,fullname:string,dob:string,username:string) {
-    const authData= {email: email, password: password,fullname:fullname,dob:dob,username:username};
+    const authData= {email: email, password: password,fullname:fullname,dob:dob,username:username,emailverified:false};
     //post send req to backend (api/user/signup accept request)
     this.http
       .post("http://localhost:3000/api/user/signup", authData)
@@ -56,28 +62,38 @@ export class AuthService {
 fetchProfile(){
   
   this.http.get<{ message: string; user: any }>("http://localhost:3000/api/user/profile")
-  // .pipe(
-  //   map(userData => {
-  //     return userData.user.map((user: { username: any; email: any; _id: any;}) => {
-  //       return {
-  //         // title: post.title,
-  //         username: user.username,
-  //         id: user._id,
-  //         email: user.email
-  //       };
-  //     });
-  //   })
-  // ) 
+  .pipe(
+    map(userData => {
+      // return userData.user.map((user: { username: any; email: any; _id: any;fullname: any}) => {
+        return {
+          // title: post.title,
+          username: userData.user.username,
+          id: userData.user._id,
+          email: userData.user.email,
+          fullname : userData.user.fullname,
+          emailverified : userData.user.emailverified,
+          dob:userData.user.dob
+        };
+      })
+    // })
+  )
     .subscribe(userData=> {
-      this.profile = userData.user
-      console.log(userData.user.userId)
-      // return this.profile
+      // this.profile = userData.user
+      this.cookieService.set('user',JSON.stringify(userData))
+      
     });
   }
+
+setProfile(userData){
+  this.profile=userData
+  console.log(this.profile)
+  
+}
 getProfile(){
-  // console.log(this.profile)
-  this.fetchProfile()
+  this.profile=JSON.parse(this.cookieService.get('user'))
+  console.log(this.profile)
   return this.profile
+  
 }
 
   login(email: string, password: string) {

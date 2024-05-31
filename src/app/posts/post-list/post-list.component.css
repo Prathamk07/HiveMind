@@ -106,7 +106,7 @@ mat-accordion{
     
 }
 cdk-virtual-scroll-viewport{
-    height: 13vh;
+    height: 100vh;
     overflow-x:hidden ;
     width: 100vw;
     margin: auto;

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,8 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  username='Pratham'
-  fullname="Pratham Kalra"
-  email='prathamkalra418@gmail.com'
-  emailverified =false
+  constructor(private authService : AuthService){
+
+  }
+  profile =this.authService.getProfile()
+  
+  username : string = this.profile.username
+  fullname=this.profile.fullname
+  email=this.profile.email
+  emailverified =this.profile.emailverified
 }

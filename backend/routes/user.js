@@ -17,7 +17,8 @@ router.post("/signup", (req, res, next) => {
       password: hash,
       username : req.body.username,
       dob : req.body.dob,
-      fullname : req.body.fullname
+      fullname : req.body.fullname,
+      emailverified : req.body.emailverified
     });
     user
       .save()
@@ -156,7 +157,7 @@ router.post("/login", (req, res, next) => {
           message: "Auth failed"
         });
       }
-      userToken = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id ,fullname : fetchedUser.fullname,dob : fetchedUser.dob,username:fetchedUser.username},"secret_this_should_be_longer");
+      userToken = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id ,fullname : fetchedUser.fullname,dob : fetchedUser.dob,username:fetchedUser.username,emailverified:fetchedUser.emailverified},"secret_this_should_be_longer");
       console.log(userToken);
       res.cookie('cookie',userToken)
       res.status(200).json({
