@@ -1,9 +1,10 @@
 const mongoose=require('mongoose');
 
-const postSchema = mongoose.Schema({
+const commentSchema = mongoose.Schema({
     // title:{type:String,required:true},
-    username: {type:String, required:true},
-    caption:{type:String,required:false},
+    id: {type:String, required:true},
+    postId :{type:String,required : true},
+    comment:{type:String,required:false},
     imagePath:{type:String,require:true}
 
 });

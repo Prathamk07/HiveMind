@@ -1,10 +1,13 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div  class="container" style="height: fit-content; ">
+  <app-comment (toggleCommentEvent)="onCommentToggle($event)" *ngIf="commentToggle"></app-comment>
   <cdk-virtual-scroll-viewport itemSize="2">
   <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
       <div class="postss" style="width:480px;" *cdkVirtualFor="let post of posts">
-       
         <div class="post-image" style="margin-top: 5%;">
+          <div class="username">
+            <p style="text-align: left;">{{post.username }}</p>
+          </div>
           <img style="height: 640px; width:480px; object-fit: contain ; margin: auto;" [src]="post.imagePath" >
         </div>
 
@@ -14,11 +17,11 @@
 
         <mat-card-actions align="start">
           <mat-icon class="action-item" color="Basic">favorite_border</mat-icon>
-          <mat-icon class="action-item" color="Basic">chat_bubble_outline</mat-icon>
+          <mat-icon class="action-item" (click)="onCommentToggle(true)" color="Basic">chat_bubble_outline</mat-icon>
           <mat-icon class="action-item" color="Basic">save</mat-icon>
         </mat-card-actions>
 
-        <div *ngIf="userIsAuthenticated">
+        <div *ngIf="userIsAuthenticated && user.username===post.username">
           <a mat-button color="primary" [routerLink]="['/edit/', post.id]">EDIT</a>
           <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
         </div>

@@ -1,0 +1,38 @@
+<div class="comment">
+    <div (click)="onToggleComment()" class="exitbtn" >exit</div>
+    <div id="reply-box">
+        <p>comment</p>
+        <mat-accordion multi="true" *ngIf="comments.length > 0 ">
+            <mat-expansion-panel *ngFor="let comment of comments">
+                <p>       
+                    {{ comment.comment }}
+                </p>
+                <mat-action-row>
+                    <button mat-button color="primary">EDIT</button>
+                    <button mat-button color="warn" (click)="OnDeletecomment(comment.id)">DELETE</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+        <p class="info-text mat-body-1" *ngIf="comments.length <= 0">No posts added yet!</p>
+    </div>
+    
+    <form (submit)="PostComment(commnetForm)" #commnetForm="ngForm">
+    <div id="reply-action-bar">
+        <textarea 
+        matInput 
+        name="comment"
+        ngModel
+        required
+        placeholder="Comment..."
+        #comment="ngModel"></textarea>
+    
+        <button 
+        mat-flat-button 
+        color="accent" 
+        type="submit">
+            <mat-icon>send</mat-icon>
+        </button>
+    
+    </div>
+    </form>
+</div>

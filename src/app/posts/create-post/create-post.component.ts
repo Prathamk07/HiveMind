@@ -91,7 +91,7 @@ export class CreatePostComponent implements OnInit {
       this.getProfile()
       if (this.mode === "create") {
         this.postsService.addPost(
-          this.user.userId,
+          this.user.username,
           // this.form.value.title, 
           this.form.value.content,
           this.form.value.image

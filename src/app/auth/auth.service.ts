@@ -90,8 +90,12 @@ setProfile(userData){
   
 }
 getProfile(){
-  this.profile=JSON.parse(this.cookieService.get('user'))
-  console.log(this.profile)
+  const cookie = this.cookieService.get('user')
+  if(cookie){
+
+    this.profile=JSON.parse(cookie)
+    console.log(this.profile)
+  }
   return this.profile
   
 }

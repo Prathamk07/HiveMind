@@ -22,7 +22,9 @@ export class PostListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   postsSub!: Subscription;
   authStatusSub:boolean
-
+  commentToggle=false
+  user=this.authService.getProfile()
+  auther:string
   constructor(public postsService: PostsService, private authService: AuthService,private router : Router) {
     
   }
@@ -45,7 +47,14 @@ export class PostListComponent implements OnInit, OnDestroy {
    
     }
 
-  
+  onCommentToggle(event : any){
+    if(!this.commentToggle){
+
+      this.commentToggle=event
+    }else{
+      this.commentToggle=false
+    }
+  }
   onDelete(postId: string) {
     this.isLoading = true;
     this.postsService.deletePost(postId);

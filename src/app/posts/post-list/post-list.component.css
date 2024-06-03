@@ -117,4 +117,7 @@ cdk-virtual-scroll-viewport{
     /* justify-content: center; */
     padding: 20%;
 }
-
+.username{
+    text-align: left;
+    margin: 5%;
+}

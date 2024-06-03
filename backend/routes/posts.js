@@ -39,7 +39,7 @@ router.post(
     const url = req.protocol + "://" + req.get("host");
     const post = new Post({
       // title: req.body.title,
-      userId : req.body.userId,
+      username : req.body.username,
       caption: req.body.content,
        imagePath: url + "/images/" + req.file.filename
     });
@@ -116,5 +116,13 @@ router.delete("/:id", (req, res, next) => {
     res.status(200).json({ message: "Post deleted!" });
   });
 });
+
+router.post("/comment",(req,res,next)=>{
+  const data = {
+    username : req.body.username,
+    comment : req.body.comment
+  }
+  console.log(data)
+})
 
 module.exports = router;

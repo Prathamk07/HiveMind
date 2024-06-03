@@ -24,10 +24,10 @@ export class PostsService {
     .get<{ message: string; posts: any }>("http://localhost:3000/api/posts")
     .pipe(
       map(postData => {
-        return postData.posts.map((post: { title: any; userId:any,caption: any; _id: any; imagePath:any }) => {
+        return postData.posts.map((post: { title: any; username:any,caption: any; _id: any; imagePath:any }) => {
           return {
             // title: post.title,
-            userId : post.userId,
+            username : post.username,
             content: post.caption,
             id: post._id,
             imagePath: post.imagePath
@@ -58,13 +58,13 @@ getPost(id: string) {
     return this.postsUpdated.asObservable();
   }
 
-  updatePost(id: string, userId:string, content: string, image: File | string) {
+  updatePost(id: string, username:string, content: string, image: File | string) {
     let postData: Post | FormData;
-    console.log('userid',userId)
+    console.log('userid',username)
     if (typeof(image) === 'object') {
       postData = new FormData();
       postData.append("id", id);
-      postData.append("userId",userId)
+      postData.append("username",username)
       // postData.append("title", title);
       postData.append("content", content);
       postData.append("image", image);
@@ -72,7 +72,7 @@ getPost(id: string) {
       const postData : Post = {
         id: id,
         // title: title,
-        userId : userId,
+        username : username,
         content: content,
         imagePath: image
       };
@@ -85,7 +85,7 @@ getPost(id: string) {
         const post: Post ={
           id: id,
           // title: title,
-          userId:userId,
+          username:username,
           content: content,
           imagePath: "response.imagePath"
         };
@@ -97,16 +97,16 @@ getPost(id: string) {
   }
 
 
-  addPost(userId:string,content: string, image: File) {
+  addPost(username:string,content: string, image: File) {
     const postData = new FormData();
     // postData.append("title", title);
-    postData.append("userId",userId);
+    postData.append("username",username);
     postData.append("content", content);
     postData.append("image", image);
     console.log('postdata :',postData)
     this.http
       .post<{
-        userId: string;
+        username: string;
         post: Post; message: string}>(
         "http://localhost:3000/api/posts",
          postData
@@ -115,10 +115,11 @@ getPost(id: string) {
         const post: Post ={
           id: responseData.post.id,
           // title: title,
-          userId : responseData.userId,
+          username : username,
           content: content,
           imagePath: responseData.post.imagePath
         };
+        console.log(post)
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
         this.router.navigate(["/"]);

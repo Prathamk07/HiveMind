@@ -46,7 +46,7 @@ router.get('/profile',(req,res,next)=>{
       user:userData
     })
   })
-})  
+})    
 
 router.post('/forgotpassword',async (req,res,next)=>{
   const email = req.body.email;
