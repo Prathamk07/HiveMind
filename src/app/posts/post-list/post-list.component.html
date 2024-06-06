@@ -1,8 +1,8 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div  class="container" style="height: fit-content; ">
-  <app-comment (toggleCommentEvent)="onCommentToggle($event)" *ngIf="commentToggle"></app-comment>
+  <app-comment [postId]="postId" (toggleCommentEvent)="onCommentToggle($event,null)" *ngIf="commentToggle"></app-comment>
   <cdk-virtual-scroll-viewport itemSize="2">
-  <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+    <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
       <div class="postss" style="width:480px;" *cdkVirtualFor="let post of posts">
         <div class="post-image" style="margin-top: 5%;">
           <div class="username">
@@ -17,8 +17,8 @@
 
         <mat-card-actions align="start">
           <mat-icon class="action-item" color="Basic">favorite_border</mat-icon>
-          <mat-icon class="action-item" (click)="onCommentToggle(true)" color="Basic">chat_bubble_outline</mat-icon>
-          <mat-icon class="action-item" color="Basic">save</mat-icon>
+          <mat-icon class="action-item" (click)="onCommentToggle(true,post.id)" color="Basic">chat_bubble_outline</mat-icon>
+          <mat-icon class="action-item" color="Basic">save</mat-icon> 
         </mat-card-actions>
 
         <div *ngIf="userIsAuthenticated && user.username===post.username">

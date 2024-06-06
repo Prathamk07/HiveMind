@@ -7,40 +7,43 @@ import { Subject, map } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class CommentsService {
     private comments: Comment[] = [];
-    private commentsUpdated = new Subject<Comment[]>();
+    private commentsUpdated=new Subject<Comment[]> ;
 
 constructor(private http:HttpClient, private router: Router){ }
 
-getPostComment() {
+getPostComment(postId:string) {
     this.http
-      .get<{
-        comment: any; message: string; }>(
-        "http://localhost:3000/api/posts/comment"
-      )
-      .pipe(map((postcommnetData) => {
-        return postcommnetData.comment.map(data => {
+      .get<{comment: any; message: string; }>("http://localhost:3000/api/comment/"+postId)
+      .pipe(
+        map(postcommentData => {
+        return postcommentData.comment
+        .map((comments:{userId : any,username:any,comment:any,_id:any})=>{
           return {
-            userId : data.userId,
-            comment: data.comment,
-            id: data._id,
+            userId : comments.userId,
+            username : comments.username,
+            comment: comments.comment,
+            id: comments._id,
           };
         });
       }))
-      .subscribe(transformedPostcomment => {
-        this.comments= transformedPostcomment;
-        this.commentsUpdated.next([...this.comments]);
+      .subscribe(postcommentData => {
+        // console.log('transformed Commments',postcommentData)
+        this.comments= postcommentData;
+        this.commentsUpdated.next([...postcommentData]);
+        // console.log('commentsUpdated',this.commentsUpdated)
+        // return this.comments
       });
   }
   
 
 getCommentUpdateListener() {
-    return this.commentsUpdated.asObservable();
+    return this.commentsUpdated.asObservable()
   }
 
-addPostcomment(username:string,comment:string){
+addPostcomment(username:string,comment:string,postId){
     const postcomment: Comment = {
-        id: null, comment:comment, username: username}
-      console.log(postcomment)
+        id: null, postId:postId,comment:comment, username: username}
+      // console.log(postcomment)
     this.http
     .post<{ userId: string;
         message: string, commentId: string }>("http://localhost:3000/api/posts/comment", postcomment)

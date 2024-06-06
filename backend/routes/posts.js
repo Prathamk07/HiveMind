@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-
+const Comment = require("../models/comment")
 const Post = require("../models/post");
 // const checkAuth = require("../middleware/check-auth");
 
@@ -118,11 +118,37 @@ router.delete("/:id", (req, res, next) => {
 });
 
 router.post("/comment",(req,res,next)=>{
-  const data = {
+  const comment = new Comment({
     username : req.body.username,
-    comment : req.body.comment
+    comment : req.body.comment,
+    postId : req.body.postId,
+  })
+  
+  comment.save().then(createdComment=>{
+    // if (err) throw err
+      // res.status(200).json(createdComment)
+     try{
+      res.status(201).json({message :'createdComment',response:createdComment})
+     }catch(err){
+      throw err
+     }
   }
-  console.log(data)
+)
+  
+  // console.log(data)
+  // res.json(data)
+})
+
+router.get('/comment',(req,res,next)=>{
+  // try{
+
+  //   const commentQuery=Comment.find()
+  //   console.log(commentQuery)
+  // }
+  // catch(err){
+  //   console.log(err)
+  // }
+  res.status(201).json('comment get request')
 })
 
 module.exports = router;

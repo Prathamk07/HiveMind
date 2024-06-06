@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CommentsService } from './comments.service';
 import { AuthService } from '../../auth/auth.service';
@@ -13,11 +13,13 @@ import { Comment } from './comment.model';
 })
 export class CommentComponent {
 
+  
   constructor(public commentsService: CommentsService,public authService:AuthService,public router : Router){}
   @Output() toggleCommentEvent = new EventEmitter<boolean>();
   onToggleComment(){
     this.toggleCommentEvent.emit(false)
   }
+  @Input() postId : string;
   enteredComment = "";
   private mode = "create";
   private commentId: string='';
@@ -30,13 +32,13 @@ export class CommentComponent {
 
   ngOnInit(): void{
 
-    this.commentsService.getPostComment();
+    this.commentsService.getPostComment(this.postId);
     this.commentSub = this.commentsService.getCommentUpdateListener()
-    .subscribe((comments: Comment[])=>{
-
-      this.comments.push()
-    }
-    );
+    .subscribe((comments : Comment[])=>{
+      // this.isLoading = false;
+        this.comments = comments;
+        console.log('comments :',this.comments)
+    });
     if(this.userIsAuthenticated===false){
       this.router.navigate(['login'])
     }
@@ -47,13 +49,13 @@ export class CommentComponent {
     if (form.invalid) {
       return;
     }
-    this.commentsService.addPostcomment(this.user.username,form.value.comment);
+    this.commentsService.addPostcomment(this.user.username,form.value.comment,this.postId);
     form.resetForm();
   }
 
-  OnDeletecomment(commentId: string){
-    this.commentsService.deletePostcomment(commentId);
-  }
+  // OnDeletecomment(commentId: string){
+    // this.commentsService.deletePostcomment(commentId);
+  // }
 
   ngOnDestroy(){
     this.commentSub.unsubscribe();

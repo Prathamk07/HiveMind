@@ -1,38 +1,49 @@
 <div class="comment">
-    <div (click)="onToggleComment()" class="exitbtn" >exit</div>
+    <div (click)="onToggleComment()" class="exitbtn" style="margin: 2%;" >x</div>
     <div id="reply-box">
-        <p>comment</p>
-        <mat-accordion multi="true" *ngIf="comments.length > 0 ">
-            <mat-expansion-panel *ngFor="let comment of comments">
-                <p>       
-                    {{ comment.comment }}
-                </p>
-                <mat-action-row>
-                    <button mat-button color="primary">EDIT</button>
-                    <button mat-button color="warn" (click)="OnDeletecomment(comment.id)">DELETE</button>
-                  </mat-action-row>
-                </mat-expansion-panel>
-            </mat-accordion>
-        <p class="info-text mat-body-1" *ngIf="comments.length <= 0">No posts added yet!</p>
+        <p>Comments</p>
+        <p class="info-text mat-body-1" *ngIf="comments.length<=0">No posts added yet!</p>
+        <div class="scrollablecomments" *ngIf="comments.length>0">
+            
+                <div class="commentsection" *ngFor="let comment of comments">
+                    <div>
+
+                        <span class="username"><span>&commat;</span>{{comment.username}}</span> 
+                        <p>{{ comment.comment }}</p>
+                    </div>
+                
+                </div>
+            
+                    <!-- <button mat-button color="primary">EDIT</button> -->
+                    <!-- (click)="OnDeletecomment(comment.id) -->
+                    <!-- <button mat-button color="warn">DELETE</button> -->
+              
+              
+                </div>
+                <form (submit)="PostComment(commnetForm)" #commnetForm="ngForm">
+                <div class="reply" style="display: flex;">
+                    <div style="width: 70%;display: flex;">
+                        <textarea 
+                        matInput 
+                        name="comment"
+                        ngModel
+                        required
+                        placeholder="Comment..."
+                        #comment="ngModel" class="commentInput"></textarea>
+                    </div>
+                
+
+                    <button 
+                    mat-flat-button 
+                    color="accent" 
+                    style="width: 30%; display: flex;"
+                    type="submit" class="commentSend">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                
+                
+                </div>
+                </form>
     </div>
     
-    <form (submit)="PostComment(commnetForm)" #commnetForm="ngForm">
-    <div id="reply-action-bar">
-        <textarea 
-        matInput 
-        name="comment"
-        ngModel
-        required
-        placeholder="Comment..."
-        #comment="ngModel"></textarea>
-    
-        <button 
-        mat-flat-button 
-        color="accent" 
-        type="submit">
-            <mat-icon>send</mat-icon>
-        </button>
-    
-    </div>
-    </form>
 </div>

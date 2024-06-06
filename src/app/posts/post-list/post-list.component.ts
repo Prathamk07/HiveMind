@@ -25,6 +25,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   commentToggle=false
   user=this.authService.getProfile()
   auther:string
+  postId:string
   constructor(public postsService: PostsService, private authService: AuthService,private router : Router) {
     
   }
@@ -47,10 +48,11 @@ export class PostListComponent implements OnInit, OnDestroy {
    
     }
 
-  onCommentToggle(event : any){
+  onCommentToggle(event : any,postId : string){
     if(!this.commentToggle){
 
       this.commentToggle=event
+      this.postId = postId
     }else{
       this.commentToggle=false
     }
