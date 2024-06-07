@@ -96,7 +96,15 @@ mat-accordion{
     justify-self: center; */
 
 }
-
+#likeIcon{
+    color: red;
+    display: flex;
+    /* margin-left: ; */
+    
+}
+#likecount{
+    font-size: small;
+}
 .post-image img {
     /* width: 50%; */
  
@@ -120,4 +128,7 @@ cdk-virtual-scroll-viewport{
 .username{
     text-align: left;
     margin: 5%;
+}
+.action-item{
+    margin-left: 7px;
 }

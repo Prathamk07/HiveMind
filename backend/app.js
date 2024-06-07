@@ -6,6 +6,7 @@ const cookies = require('cookie-parser')
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 const commentRoutes = require("./routes/comment")
+const likeRoutes = require("./routes/like")
 const cors = require('cors')
 const app = express();
 
@@ -42,5 +43,6 @@ app.use(cors({
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/like",likeRoutes)
 
 module.exports = app;

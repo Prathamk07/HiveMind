@@ -26,6 +26,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   user=this.authService.getProfile()
   auther:string
   postId:string
+  liked=false
+  likedIcon='border'
   constructor(public postsService: PostsService, private authService: AuthService,private router : Router) {
     
   }
@@ -33,6 +35,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.userIsAuthenticated = this.authService.getIsAuth();
+
     this.postsService.getPosts();
     this.postsSub = this.postsService
       .getPostUpdateListener()
@@ -41,6 +44,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.posts = posts;
         console.log(this.posts)
       });
+      this.postsService.getPostLike()
       if(this.userIsAuthenticated===false){
         this.router.navigate(['login'])
       }
@@ -60,6 +64,17 @@ export class PostListComponent implements OnInit, OnDestroy {
   onDelete(postId: string) {
     this.isLoading = true;
     this.postsService.deletePost(postId);
+  }
+  likeToggle(postId:string){
+    if(this.liked){
+      this.liked=false;
+      this.likedIcon='border'
+      this.postsService.onPostDislike(postId,this.user.username)
+    }else{
+      this.liked=true;
+      this.likedIcon='fill'
+      this.postsService.onPostLike(postId,this.user.username)
+    }  
   }
   ngOnDestroy() {
     this.postsSub.unsubscribe();

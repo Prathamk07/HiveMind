@@ -7,6 +7,8 @@ import { Router } from "@angular/router";
 @Injectable({providedIn: 'root'})
 export class PostsService {
   private posts: Post[] = [];
+  likeId:string
+  likesUpdated=new Subject();
   private postsUpdated = new Subject<Post[]>();
   constructor(private http:HttpClient, private router: Router){ }
 
@@ -24,13 +26,14 @@ export class PostsService {
     .get<{ message: string; posts: any }>("http://localhost:3000/api/posts")
     .pipe(
       map(postData => {
-        return postData.posts.map((post: { title: any; username:any,caption: any; _id: any; imagePath:any }) => {
+        return postData.posts.map((post: { title: any; username:any,caption: any; _id: any; imagePath:any,likes:any }) => {
           return {
             // title: post.title,
             username : post.username,
             content: post.caption,
             id: post._id,
-            imagePath: post.imagePath
+            imagePath: post.imagePath,
+            likes:post.likes
           };
         });
       })
@@ -58,7 +61,7 @@ getPost(id: string) {
     return this.postsUpdated.asObservable();
   }
 
-  updatePost(id: string, username:string, content: string, image: File | string) {
+  updatePost(id: string, username:string, content: string, image: File | string,likes:string) {
     let postData: Post | FormData;
     console.log('userid',username)
     if (typeof(image) === 'object') {
@@ -74,7 +77,8 @@ getPost(id: string) {
         // title: title,
         username : username,
         content: content,
-        imagePath: image
+        imagePath: image,
+        likes : likes
       };
     }
     this.http
@@ -87,7 +91,8 @@ getPost(id: string) {
           // title: title,
           username:username,
           content: content,
-          imagePath: "response.imagePath"
+          imagePath: "response.imagePath",
+          likes : likes
         };
         updatedPosts[oldPostIndex] = post;
         this.posts = updatedPosts;
@@ -97,12 +102,13 @@ getPost(id: string) {
   }
 
 
-  addPost(username:string,content: string, image: File) {
+  addPost(username:string,content: string, image: File,likes:string) {
     const postData = new FormData();
     // postData.append("title", title);
     postData.append("username",username);
     postData.append("content", content);
     postData.append("image", image);
+    postData.append("likes",likes)
     console.log('postdata :',postData)
     this.http
       .post<{
@@ -112,18 +118,72 @@ getPost(id: string) {
          postData
         )
       .subscribe(responseData => {
+        console.log(responseData)
         const post: Post ={
+          
           id: responseData.post.id,
           // title: title,
           username : username,
           content: content,
-          imagePath: responseData.post.imagePath
+          imagePath: responseData.post.imagePath,
+          likes:responseData.post.likes
         };
-        console.log(post)
+        // console.log(post)
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
         this.router.navigate(["/"]);
       });
+  }
+
+  onPostLike(postId:string,username:string){
+    console.log('liked by :',username,postId)
+    const likeData={postId:postId, username:username}
+    this.http.post<{message:string,likedby:any}>("http://localhost:3000/api/like/" + postId, likeData)
+    // .pipe(
+    //   map(responseData=>{
+    //     return responseData.likedby.map((likes:{postId:any , _id:any, likedby:any })=>{
+    //       return {
+    //         postId : likes.postId,
+    //         likeId : likes._id,
+    //         likedBy : likes.likedby,
+    //       }
+    //     })
+    //   })
+    // )
+    .subscribe(data=>{
+      this.likeId=data.likedby._id
+      this.likesUpdated.next([...this.likeId]);
+
+      // console.log(data.likedby._id)
+      // this.likeId=responseData.response._id
+    })
+  } 
+  getPostLike(){
+    this.http.get<{message:string,likes:any}>("http://localhost:3000/api/like")
+    .pipe(
+      map(likesData => {
+        return likesData.likes.map((likes: { postId: any; username:any,_id: any;}) => {
+          return {
+            // title: post.title,
+            username : likes.username,
+            // content: post.caption,
+            id: likes._id,
+            postId : likes.postId
+            // imagePath: post.imagePath,
+            // likes:post.likes
+          };
+        });
+        })
+        )
+          .subscribe(data=>{
+            console.log('likes',data)
+          })
+  }
+  onPostDislike(postId:string,userId:string){
+    // console.log(this.likeId)
+    // console.log('unliked by:', userId,postId)
+    this.http.delete("http://localhost:3000/api/like/"+this.likeId)
+    
   }
 }
 

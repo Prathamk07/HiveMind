@@ -46,7 +46,7 @@ addPostcomment(username:string,comment:string,postId){
       // console.log(postcomment)
     this.http
     .post<{ userId: string;
-        message: string, commentId: string }>("http://localhost:3000/api/posts/comment", postcomment)
+        message: string, commentId: string }>("http://localhost:3000/api/comment/", postcomment)
     .subscribe(responseData => {
       const id = responseData.commentId;
       

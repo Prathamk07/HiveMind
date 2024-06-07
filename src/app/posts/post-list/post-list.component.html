@@ -15,10 +15,14 @@
           <p>{{ post.content }}</p>
         </div>
 
-        <mat-card-actions align="start">
-          <mat-icon class="action-item" color="Basic">favorite_border</mat-icon>
+        <mat-card-actions style="display: flex;margin: 0 10px;" align="start">
+          <div style="display: block; text-align: center;">
+
+            <mat-icon class="action-item" (click)="likeToggle(post.id)" id="likeIcon" color="Basic">favorite_{{likedIcon}}</mat-icon>
+            <span id="likecount">{{post.likes}}</span>
+          </div>
           <mat-icon class="action-item" (click)="onCommentToggle(true,post.id)" color="Basic">chat_bubble_outline</mat-icon>
-          <mat-icon class="action-item" color="Basic">save</mat-icon> 
+          <mat-icon class="action-item" color="Basic">share</mat-icon> 
         </mat-card-actions>
 
         <div *ngIf="userIsAuthenticated && user.username===post.username">

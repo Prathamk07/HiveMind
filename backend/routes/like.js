@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
-const Comment = require("../models/comment")
+// const like = require("../models/like")
 const Post = require("../models/post");
-const comment = require("../models/comment");
+const Like = require("../models/like");
 // const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
@@ -99,17 +99,19 @@ const router = express.Router();
 //     comment : req.body.comment,
 //     postId : req.body.postId,
 //   })
-router.post("",(req,res,next)=>{
-  const comment = new Comment({
-    username : req.body.username,
-    comment : req.body.comment,
-    postId : req.body.postId,
+router.post("/:postId",(req,res,next)=>{
+  const like = new Like({
+    // username : req.body.username,
+    // comment : req.body.comment,
+    postId : req.params.postId,
+    likedby : req.body.username
   })
-  comment.save().then(createdComment=>{
+  console.log(like)
+  like.save().then(createdLike=>{
     // if (err) throw err
       // res.status(200).json(createdComment)
      try{
-      res.status(201).json({message :'createdComment',response:createdComment})
+      res.status(201).json({message :'createdLike',likedby:createdLike})
      }catch(err){
       throw err
      }
@@ -122,21 +124,21 @@ router.post("",(req,res,next)=>{
 router.put("/:commentId",(req,res,next)=>{
   
 })
-router.get("/:postId",(req,res,next)=>{
+router.get("",(req,res,next)=>{
   try{
-    let fetchedComments
-    const postId=req.params.postId
-    console.log(postId)
-    const commentQuery=comment.find({postId:postId})
-    commentQuery.then((data)=>{
+    let fetchedLikes
+    // const postId=req.params.postId
+    // console.log(postId)
+    const likeQuery=Like.find()
+    likeQuery.then((data)=>{
       console.log(data)
-      fetchedComments=data
-      return Comment.count
+      fetchedLikes=data
+      return Like.count
     }).then((count)=>{
       res.status(200).json({
-        message:"comments parsed successfully",
-        comment:fetchedComments,
-        maxComment:count
+        message:"likes parsed successfully",
+        likes:fetchedLikes,
+        maxLikes:count
       })
     })
     // fetchedComments=commentQuery.

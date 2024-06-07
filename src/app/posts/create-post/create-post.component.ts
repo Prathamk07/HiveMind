@@ -94,7 +94,8 @@ export class CreatePostComponent implements OnInit {
           this.user.username,
           // this.form.value.title, 
           this.form.value.content,
-          this.form.value.image
+          this.form.value.image,
+          '0',
         );
         console.log(this.user.userId)
       } else {
@@ -104,7 +105,9 @@ export class CreatePostComponent implements OnInit {
           // this.form.value.title,
           this.user.userId,
           this.form.value.content,
-          this.form.value.image
+          this.form.value.image,
+          '0'
+          // '0'
         );
       }
       this.form.reset();

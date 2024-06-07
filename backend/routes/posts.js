@@ -41,10 +41,12 @@ router.post(
       // title: req.body.title,
       username : req.body.username,
       caption: req.body.content,
-       imagePath: url + "/images/" + req.file.filename
+       imagePath: url + "/images/" + req.file.filename,
+       likes: req.body.likes
     });
     // console.log
     post.save().then(createdPost => {
+      console.log(createdPost)
       res.status(201).json({
         message: "Post added successfully",
         post: {
@@ -117,38 +119,33 @@ router.delete("/:id", (req, res, next) => {
   });
 });
 
-router.post("/comment",(req,res,next)=>{
-  const comment = new Comment({
-    username : req.body.username,
-    comment : req.body.comment,
-    postId : req.body.postId,
-  })
-  
-  comment.save().then(createdComment=>{
-    // if (err) throw err
-      // res.status(200).json(createdComment)
-     try{
-      res.status(201).json({message :'createdComment',response:createdComment})
-     }catch(err){
-      throw err
-     }
-  }
-)
-  
-  // console.log(data)
-  // res.json(data)
-})
 
-router.get('/comment',(req,res,next)=>{
-  // try{
+  
+//   comment.save().then(createdComment=>{
+//     // if (err) throw err
+//       // res.status(200).json(createdComment)
+//      try{
+//       res.status(201).json({message :'createdComment',response:createdComment})
+//      }catch(err){
+//       throw err
+//      }
+//   }
+// )
+  
+//   // console.log(data)
+//   // res.json(data)
+// })
 
-  //   const commentQuery=Comment.find()
-  //   console.log(commentQuery)
-  // }
-  // catch(err){
-  //   console.log(err)
-  // }
-  res.status(201).json('comment get request')
-})
+// router.get('/comment',(req,res,next)=>{
+//   // try{
+
+//   //   const commentQuery=Comment.find()
+//   //   console.log(commentQuery)
+//   // }
+//   // catch(err){
+//   //   console.log(err)
+//   // }
+//   res.status(201).json('comment get request')
+// })
 
 module.exports = router;
