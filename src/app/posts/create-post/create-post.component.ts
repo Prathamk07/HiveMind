@@ -103,7 +103,7 @@ export class CreatePostComponent implements OnInit {
         this.postsService.updatePost(
           this.postId,
           // this.form.value.title,
-          this.user.userId,
+          this.user.username,
           this.form.value.content,
           this.form.value.image,
           '0'

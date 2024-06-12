@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { Output, EventEmitter } from '@angular/core';
+import { PostListComponent } from '../posts/post-list/post-list.component';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.css'
+  styleUrl: './homepage.component.css',
 })
 export class HomepageComponent {
   @Output() authEvent = new EventEmitter<boolean>();

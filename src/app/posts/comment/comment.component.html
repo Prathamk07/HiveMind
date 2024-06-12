@@ -5,11 +5,11 @@
         <p class="info-text mat-body-1" *ngIf="comments.length<=0">No posts added yet!</p>
         <div class="scrollablecomments" *ngIf="comments.length>0">
             
-                <div class="commentsection" *ngFor="let comment of comments">
-                    <div>
+                <div class="d-flex border border-1 rounded-2 p-2 my-2"  *ngFor="let comment of comments">
+                    <div class="" style="width: fit-content;">
 
                         <span class="username"><span>&commat;</span>{{comment.username}}</span> 
-                        <p>{{ comment.comment }}</p>
+                        <p class="">{{ comment.comment }}</p>
                     </div>
                 
                 </div>
@@ -21,25 +21,26 @@
               
                 </div>
                 <form (submit)="PostComment(commnetForm)" #commnetForm="ngForm">
-                <div class="reply" style="display: flex;">
-                    <div style="width: 70%;display: flex;">
-                        <textarea 
-                        matInput 
+                <div class="grid row"  style="display: flex;">
+                    <div class="col-md-9">
+                        <textarea
                         name="comment"
+                        class="form-control"
                         ngModel
                         required
                         placeholder="Comment..."
-                        #comment="ngModel" class="commentInput"></textarea>
+                        no-resize
+                        style="resize: none;"
+                        #comment="ngModel"></textarea>
                     </div>
-                
-
-                    <button 
-                    mat-flat-button 
-                    color="accent" 
-                    style="width: 30%; display: flex;"
-                    type="submit" class="commentSend">
-                        <mat-icon>send</mat-icon>
-                    </button>
+                    <div class="col-md-3">
+                        <button
+                        class="btn btn-warning col-12"
+                        style="height: 100%;"
+                        type="submit" >
+                            send
+                        </button>
+                    </div>
                 
                 
                 </div>

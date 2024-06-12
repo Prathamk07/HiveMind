@@ -36,16 +36,32 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.get('/profile',(req,res,next)=>{
- 
-  console.log('usertoken : ',userToken)
-  decryptedToken=jwt.verify(userToken,"secret_this_should_be_longer",(err,userData)=>{
-    if (err) throw err
-    console.log("User fetched" , userData)
-    res.json({message: "User Fetched",
-      user:userData
+router.get('/profile/:username?',async (req,res,next)=>{
+  const username=req.params.username
+  if(username){
+
+    console.log('username : ',username)
+    const user=await User.findOne({username})
+    const userData = {
+      id : user.id,
+      email : user.email,
+      username : user.username,
+      dob : user.dob,
+      fullname : user.fullname,
+      emailverified : user.emailverified
+    }
+    res.status(200).json({message : 'Fetched User Profile', user : userData})
+  }
+  else{
+
+    decryptedToken=jwt.verify(userToken,"secret_this_should_be_longer",(err,userData)=>{
+      if (err) throw err
+      console.log("User fetched" , userData)
+      res.json({message: "User Fetched",
+        user:userData
+      })
     })
-  })
+  }
 })    
 
 router.post('/forgotpassword',async (req,res,next)=>{

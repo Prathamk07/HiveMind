@@ -21,6 +21,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   isLoading = false;
   userIsAuthenticated = false;
   postsSub!: Subscription;
+  likeSub : Subscription
   authStatusSub:boolean
   commentToggle=false
   user=this.authService.getProfile()
@@ -28,6 +29,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   postId:string
   liked=false
   likedIcon='border'
+  likecount : string
   constructor(public postsService: PostsService, private authService: AuthService,private router : Router) {
     
   }
@@ -44,7 +46,12 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.posts = posts;
         console.log(this.posts)
       });
-      this.postsService.getPostLike()
+      this.postsService.getPostLike();
+      this.likeSub=this.postsService.getLikeUpdateListener()
+      .subscribe((likes:any)=>{
+        this.likecount=likes.length
+        console.log('Likes : ',likes)
+      })
       if(this.userIsAuthenticated===false){
         this.router.navigate(['login'])
       }
@@ -68,11 +75,11 @@ export class PostListComponent implements OnInit, OnDestroy {
   likeToggle(postId:string){
     if(this.liked){
       this.liked=false;
-      this.likedIcon='border'
+      this.likedIcon='bi bi-heart'
       this.postsService.onPostDislike(postId,this.user.username)
     }else{
       this.liked=true;
-      this.likedIcon='fill'
+      this.likedIcon='bi bi-heart-fill'
       this.postsService.onPostLike(postId,this.user.username)
     }  
   }

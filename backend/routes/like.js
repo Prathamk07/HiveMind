@@ -106,7 +106,7 @@ router.post("/:postId",(req,res,next)=>{
     postId : req.params.postId,
     likedby : req.body.username
   })
-  console.log(like)
+  // console.log(like)
   like.save().then(createdLike=>{
     // if (err) throw err
       // res.status(200).json(createdComment)
@@ -130,8 +130,8 @@ router.get("",(req,res,next)=>{
     // const postId=req.params.postId
     // console.log(postId)
     const likeQuery=Like.find()
-    likeQuery.then((data)=>{
-      console.log(data)
+    likeQuery.then((data)=>{  
+      // console.log(data)
       fetchedLikes=data
       return Like.count
     }).then((count)=>{

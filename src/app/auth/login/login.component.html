@@ -1,39 +1,42 @@
-<mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="container col-8 mt-5 border border-1 p-5 rounded-3">
+  <div class="" *ngIf="isLoading">loading</div>
 
   <h2>Log In to your account</h2>
 
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
 
-    <mat-form-field>
-      <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
-    </mat-form-field>
-
-    <mat-card-actions align="end">
-      <button mat-flat-button (click)="onForgotPasswordClick()">Forgot Password?</button>
-    </mat-card-actions>
-
-    <div style="width: 100%; display: flex; justify-content: center;">
-      <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
+    <div>
+      <input class="form-control mb-4" name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
+      <!-- <label *ngIf="emailInput.invalid">Please enter a valid email.</label> -->
     </div>
 
-    <p >
+    <div>
+      <input class="form-control mb-4" type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
+      <!-- <label *ngIf="passwordInput.invalid">Please enter a valid password.</label> -->
+    </div>
+
+    <div  class=" fs-6 text-end " >
+      <div style="cursor: pointer; color: rgb(126, 78, 0);" (click)="onForgotPasswordClick()">Forgot Password?</div>
+    </div>
+
+    <div style="width: 100%; display: flex; justify-content: center;">
+      <button class="btn btn-warning" type="submit" *ngIf="!isLoading">Login</button>
+    </div>
+
+    <p class="mt-4 mb-2" >
       or
     </p>
 
-    <div style="width: 100%; display: flex; justify-content: center;">
-      <img src="../../../assets/google.png"><button mat-flat-button (click)="signInWithGoogle()" type="submit" *ngIf="!isLoading">Login With Google</button>
+    <div class="mb-4"  style="width: 100%; display: flex; justify-content: center;">
+      <button (click)="signInWithGoogle()" type="submit" *ngIf="!isLoading" class="btn btn-light col-10 d-flex align-items-center">
+
+        <img class="w-25 d-flex" src="../../../assets/google.png"> <div class="d-flex">Login With Google</div>
+      </button>
     </div>
 
-  <mat-card-actions >
-    Don’t have an account yet ?<button mat-flat-button (click)="onCreateAccountClick()">Create an Account</button>
-  </mat-card-actions>
+  <div >
+    Don’t have an account yet ?<button class="btn btn-light px-0 mx-2" (click)="onCreateAccountClick()">Create an Account</button>
+  </div>
   
   </form>
-</mat-card>
+</div>

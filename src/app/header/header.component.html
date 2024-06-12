@@ -1,39 +1,40 @@
-<mat-toolbar color="accent">
-    <!--<div class="logo">
-        <a routerLink="/home"  class="logo"> 
-        <img src="../../assets/hivemind1.png" width="100" alt="">
-        <div>
-            HiveMind
-        </div>
-    </a>
-    </div>-->
+<!-- <div class="bg-warning">
 
-    <button class="menubutton"
-    
-    mat-icon-button
-    *ngIf="sidenav.mode === 'over' && userIsAuthenticated"
-    (click)="sidenav.toggle()"
-  ><div style="width: 25%;">
 
-    <mat-icon class="white" color="accent" *ngIf="!sidenav.opened"> menu </mat-icon>
-    <mat-icon class="white" color="accent" *ngIf="sidenav.opened"> close </mat-icon>
-  </div>
-  </button>
-<button style="visibility: hidden;" *ngIf="!userIsAuthenticated">
-
-</button>
-  <div class="flexlogo">
-    <a href="/home" style="font-weight: 900; color: brown;"><img src="../../assets/hivemindpng.png" class="imglogo" alt=""></a>
- </div>
-
+  <div class="d-flex">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="size-6 d-flex "
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3.75 9h16.5m-16.5 6.75h16.5"
+      />
+    </svg>
     <div>
-        <a *ngIf="!loggedin" href="/login" mat-button>Login</a>
-        <a *ngIf="!loggedin" href="/signup" mat-button>Signup</a>
-        <a *ngIf="loggedin" href="/posts" mat-button >New Post</a>
-        <a *ngIf="loggedin" (click)="onLogout()" mat-button >Logout</a>
-    </div>      
+      
+    </div>
+  </div>
+  <button style="visibility: hidden" *ngIf="!userIsAuthenticated"></button>
+  <div class="flexlogo">
+    <a href="/home" style="font-weight: 900; color: brown"
+      ><img src="../../assets/hivemindpng.png" class="imglogo" alt=""
+    /></a>
+  </div>
 
-    <mat-sidenav #sidenav="matSidenav" color="accent" class="sidebar">
+  <div>
+    <a *ngIf="!loggedin" href="/login" mat-button>Login</a>
+    <a *ngIf="!loggedin" href="/signup" mat-button>Signup</a>
+    <a *ngIf="loggedin" href="/posts" mat-button>New Post</a>
+    <a *ngIf="loggedin" (click)="onLogout()" mat-button>Logout</a>
+  </div>
+
+  <div #sidenav="" color="accent" class="sidebar">
         <div class="sidenavcontent">
           
           <img
@@ -44,28 +45,65 @@
           <h4 class="name">John Smith</h4>
           <p class="designation">Software Engineer</p>
           
-          <mat-divider></mat-divider>
+          <div></div>
             
                 <button mat-button class="menu-button" routerLink="/home">
-                  <mat-icon class="bulleticons" color="accent">home</mat-icon>
+                  <div class="bulleticons" color="accent">home</div>
                   <a>Home</a>
                 </button>
                 <button mat-button class="menu-button" routerLink="/profile">
-                  <mat-icon class="bulleticons" color="accent">person</mat-icon>
+                  <div class="bulleticons" color="accent">person</div>
                   <a routerLink="/profile">Profile</a>
                 </button>
                 <button mat-button class="menu-button" routerLink="/about">
-                  <mat-icon class="bulleticons" color="accent">info</mat-icon>
+                  <div class="bulleticons" color="accent">info</div>
                   <a>About</a>
                 </button>
                 
-                <mat-divider></mat-divider>
+                <hr/>
                 
                 <button mat-button class="menu-button" routerLink="/help">
-                  <mat-icon>help</mat-icon>
+                  <div>help</div>
                   <a>Help</a>
-                </button>
-              </div>
-            </mat-sidenav>
+                  </button>
+                  </div>
+                  </div>
+                  </div> -->
+                  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-warning bg-gradient bg-opacity-75 ">
+                    <div class="container-fluid text-white ">
+    <a class="navbar-brand" href="#"><img src="../../assets/hivemindpng.png" width="150" alt=""></a>
     
-</mat-toolbar>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="loggedin" href="/posts" aria-current="page" >Create Post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="loggedin" [routerLink]="['/messages']" aria-current="page" >Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" *ngIf="loggedin" (click)="onLogout()">Logout</a>
+        </li>
+        <li *ngIf="loggedin" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Menu
+          </a>
+          <ul   class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/profile/',user.username]">Profile</a></li>
+            <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+            <!-- <li><hr class="dropdown-divider"></li> -->
+            <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+          </ul>
+        </li>
+       
+        </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-black bg-warning-subtle" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>

@@ -1,12 +1,29 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="isLoading">loading</div>
 <div  class="container" style="height: fit-content; ">
   <app-comment [postId]="postId" (toggleCommentEvent)="onCommentToggle($event,null)" *ngIf="commentToggle"></app-comment>
   <cdk-virtual-scroll-viewport itemSize="2">
-    <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+    <div multi="true" *ngIf="posts.length > 0 && !isLoading">
       <div class="postss" style="width:480px;" *cdkVirtualFor="let post of posts">
         <div class="post-image" style="margin-top: 5%;">
-          <div class="username">
-            <p style="text-align: left;">{{post.username }}</p>
+          <div class="username d-flex justify-content-between">
+            <p class="" style="text-align: left;">
+              <a [routerLink]="['/profile/',post.username]">
+                {{post.username }}
+              </a>
+            </p>
+            <li style="list-style-type: none;" *ngIf="userIsAuthenticated && user.username===post.username" class="dropdown pull-left">
+              <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+                
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a class="dropdown-item" [routerLink]="['/edit/', post.id]">Edit</a></li>
+                <li><a class="dropdown-item" (click)="onDelete(post.id)">Delete</a></li>
+                <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+                <!-- <li><hr class="dropdown-divider"></li> -->
+                <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+              </ul>
+            </li>
           </div>
           <img style="height: 640px; width:480px; object-fit: contain ; margin: auto;" [src]="post.imagePath" >
         </div>
@@ -15,23 +32,26 @@
           <p>{{ post.content }}</p>
         </div>
 
-        <mat-card-actions style="display: flex;margin: 0 10px;" align="start">
-          <div style="display: block; text-align: center;">
+        <div style="display: flex;margin: 0 10px;" align="start">
+          <div class="mx-1 " style="display: block; text-align: center;">
 
-            <mat-icon class="action-item" (click)="likeToggle(post.id)" id="likeIcon" color="Basic">favorite_{{likedIcon}}</mat-icon>
-            <span id="likecount">{{post.likes}}</span>
+            <!-- <mat-icon class="action-item"  id="likeIcon" color="Basic">favorite_{{likedIcon}}</mat-icon> -->
+            <i class="d-block text-align-center text-danger fs-5" [ngClass]="liked?'bi bi-heart-fill':'bi bi-heart'" (click)="likeToggle(post.id)"></i>
+            <span id="likecount">{{likecount}}</span>
           </div>
-          <mat-icon class="action-item" (click)="onCommentToggle(true,post.id)" color="Basic">chat_bubble_outline</mat-icon>
-          <mat-icon class="action-item" color="Basic">share</mat-icon> 
-        </mat-card-actions>
-
-        <div *ngIf="userIsAuthenticated && user.username===post.username">
-          <a mat-button color="primary" [routerLink]="['/edit/', post.id]">EDIT</a>
-          <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+          <!-- <mat-icon class="action-item"  color="Basic">chat_bubble_outline</mat-icon> -->
+          <i class="bi bi-chat mx-1 fs-5" (click)="onCommentToggle(true,post.id)"></i>
+          <!-- <mat-icon class="action-item" color="Basic">share</mat-icon>  -->
+          <i class="bi bi-send mx-1 fs-5"></i>
         </div>
 
+        <!-- <div *ngIf="userIsAuthenticated && user.username===post.username">
+          <a [routerLink]="['/edit/', post.id]">EDIT</a>
+          <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+        </div> -->
+
       </div>
-    </mat-accordion>
+    </div>
   </cdk-virtual-scroll-viewport>
    <!-- <mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
   *ngIf="posts.length > 0"></mat-paginator>-->

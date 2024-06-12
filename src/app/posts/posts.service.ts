@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 export class PostsService {
   private posts: Post[] = [];
   likeId:string
+  likes:any
   likesUpdated=new Subject();
   private postsUpdated = new Subject<Post[]>();
   constructor(private http:HttpClient, private router: Router){ }
@@ -60,6 +61,9 @@ getPost(id: string) {
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
+  getLikeUpdateListener() {
+    return this.likesUpdated.asObservable();
+  }
 
   updatePost(id: string, username:string, content: string, image: File | string,likes:string) {
     let postData: Post | FormData;
@@ -72,7 +76,7 @@ getPost(id: string) {
       postData.append("content", content);
       postData.append("image", image);
     }else{
-      const postData : Post = {
+       postData = {
         id: id,
         // title: title,
         username : username,
@@ -81,6 +85,7 @@ getPost(id: string) {
         likes : likes
       };
     }
+    console.log(postData)
     this.http
       .put("http://localhost:3000/api/posts/" + id, postData)
       .subscribe(response => {
@@ -176,6 +181,8 @@ getPost(id: string) {
         })
         )
           .subscribe(data=>{
+            this.likes=data
+            this.likesUpdated.next([...data])
             console.log('likes',data)
           })
   }

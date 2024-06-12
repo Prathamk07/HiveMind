@@ -4,18 +4,8 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { FormsModule, NgModel } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
-// import { AuthInterceptor } from './auth/auth-interceptor';
-import { MatPaginatorModule} from '@angular/material/paginator';
-import { MatCardModule} from '@angular/material/card'
-import { MatFormFieldModule, } from '@angular/material/form-field'
-import { MatButtonModule} from '@angular/material/button'
-import { MatInputModule} from '@angular/material/input';
-import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { MatToolbarModule} from '@angular/material/toolbar';
-import { MatAccordion, MatExpansionModule} from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';  
-import { MatDivider } from '@angular/material/divider';
+
+import { RouterModule } from '@angular/router';
 import { CdkVirtualScrollViewport, ScrollingModule } from "@angular/cdk/scrolling";
 import {CookieService} from 'ngx-cookie-service';
 
@@ -36,6 +26,8 @@ import { ProfileComponent } from './auth/profile/profile.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { CommentComponent } from './posts/comment/comment.component';
+import { MessagesComponent } from './chat/messages/messages.component';
+// import { ChattingComponent } from './chatting/chatting.component';
 // import { AuthInterceptor} from './auth/auth-interceptor';
 
 
@@ -56,6 +48,8 @@ import { CommentComponent } from './posts/comment/comment.component';
     ForgotPasswordComponent,
     ResetComponent,
     CommentComponent,
+    MessagesComponent,
+    // ChattingComponent,
     // ThemeProvider,
     
     // NgModel,
@@ -65,21 +59,11 @@ import { CommentComponent } from './posts/comment/comment.component';
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    MatExpansionModule,
-    MatAccordion,
-    MatToolbarModule,
+    RouterModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
-    MatPaginatorModule,
+
     ReactiveFormsModule,
-    MatAccordion,
-    MatIconModule,
-    MatSidenavModule,
-    MatDivider,
+
     CdkVirtualScrollViewport,
     ScrollingModule,
     // CookieService

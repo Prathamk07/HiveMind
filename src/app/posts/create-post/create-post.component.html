@@ -1,5 +1,5 @@
-<mat-card >
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
+<div>
+  <div *ngIf="isLoading">loading</div>
 
   <div class="container-padding">
     <div class="container">
@@ -19,14 +19,14 @@
         <img [src]="imagePreview" [alt]="form.value.title">
       </div>
 
-      <mat-form-field>
+      <div>
         <textarea
           matInput
           rows="4"
           formControlName="content"
           placeholder="Post Content"></textarea>
-        <mat-error *ngIf="form.get('content').invalid">Please enter a post title.</mat-error>
-      </mat-form-field>
+        <label *ngIf="form.get('content').invalid">Please enter a post title.</label>
+      </div>
       <button
         mat-button
         type="submit">
@@ -34,5 +34,5 @@
 </button>
     </form>
   </div>
-</mat-card>
+</div>
 <!-- <app-post-list></app-post-list> -->

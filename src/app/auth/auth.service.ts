@@ -12,6 +12,7 @@ export class AuthService {
  private token: string=''
  resetToken=''
  profile : any
+ getUser=new Subject()
  load =0
  user:any
 //  username : string
@@ -98,6 +99,36 @@ getProfile(){
   }
   return this.profile
   
+}
+getUsers(username:string){
+  this.http.get<{ message: string; user: any }>("http://localhost:3000/api/user/profile/"+username)
+  .pipe(
+    map(userData => {
+      // return userData.user.map((user: { username: any; email: any; _id: any;fullname: any}) => {
+        return {
+          // title: post.title,
+          username: userData.user.username,
+          id: userData.user._id,
+          email: userData.user.email,
+          fullname : userData.user.fullname,
+          emailverified : userData.user.emailverified,
+          dob:userData.user.dob
+        };
+      })
+    // })
+  )
+    .subscribe(userData=> {
+      // this.profile = userData.user
+      // this.cookieService.set('getuser',JSON.stringify(userData))
+      this.getUser.next(userData)
+      
+    });
+}
+getUserProfile() {
+  return this.getUser.asObservable();
+}
+clearuserscookie(){
+  // this.cookieService.delete('getuser')
 }
 
   login(email: string, password: string) {

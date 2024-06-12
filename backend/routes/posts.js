@@ -46,7 +46,7 @@ router.post(
     });
     // console.log
     post.save().then(createdPost => {
-      console.log(createdPost)
+      // console.log(createdPost)
       res.status(201).json({
         message: "Post added successfully",
         post: {
@@ -70,10 +70,11 @@ router.put(
     const post = {
       _id: req.body.id,
       // title: req.body.title,
-      content: req.body.content,
+      username : req.body.username,
+      caption: req.body.content,
        imagePath: imagePath
     }
-    console.log(post);
+    // console.log(post);
     Post.updateOne({ _id: req.params.id }, post).then(result => {
       res.status(200).json({ message: "Update successful!" });
     });
@@ -114,7 +115,7 @@ router.get("/:id", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   Post.deleteOne({ _id: req.params.id }).then(result => {
-    console.log(result);
+    // console.log(result);
     res.status(200).json({ message: "Post deleted!" });
   });
 });

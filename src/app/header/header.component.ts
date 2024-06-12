@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
-import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
@@ -10,16 +9,18 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit, OnDestroy{
-  sidenav!: MatSidenav;
+ 
   userIsAuthenticated = false;
   authListenerSubs:boolean
 loggedin=false
-
+user:any;
   constructor(private authService: AuthService,private observer: BreakpointObserver, private router: Router){
     // window.location.reload()
   }
   ngOnInit(): void {
     this.userIsAuthenticated=this.authService.getIsAuth()
+    this.user=this.authService.getProfile()
+    console.log('current user',this.user)
     if(this.userIsAuthenticated==true){
       this.loggedin=true
       // this.authService.reload()

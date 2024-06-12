@@ -1,32 +1,32 @@
-<mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <h2>
+<div class="container col-8 mt-5 border border-1 p-5 rounded-3">
+  <div *ngIf="isLoading">loading</div>
+  <h2 class="text-center">
   Create a new account
   </h2>
   <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
-    <mat-form-field>
-      <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="fullname" ngModel type="text" placeholder="Full Name" #fullnameInput="ngModel" required fullname>
-      <mat-error *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="username" ngModel type="text" placeholder="User Name" #fullnameInput="ngModel" required username>
-      <mat-error *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput name="dob" ngModel type="date" placeholder="Date of Birth" #dobInput="ngModel" required dob>
-      <mat-error *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</mat-error>
-    </mat-form-field>
+    <div>
+      <input class="form-control my-4" name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
+      <!-- <div *ngIf="emailInput.invalid">Please enter a valid email.</div> -->
+    </div>
+    <div>
+      <input class="form-control my-4" type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
+      <!-- <label *ngIf="passwordInput.invalid">Please enter a valid password.</label> -->
+    </div>
+    <div>
+      <input class="form-control my-4" matInput name="fullname" ngModel type="text" placeholder="Full Name" #fullnameInput="ngModel" required fullname>
+      <!-- <label *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</label> -->
+    </div>
+    <div>
+      <input class="form-control my-4" matInput name="username" ngModel type="text" placeholder="User Name" #fullnameInput="ngModel" required username>
+      <!-- <label *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</label> -->
+    </div>
+    <div>
+      <input class="form-control my-4" matInput name="dob" ngModel type="date" placeholder="Date of Birth" #dobInput="ngModel" required dob>
+      <!-- <label *ngIf="fullnameInput.invalid">Please enter a valid Fullname.</label> -->
+    </div>
     <div style="display: flex; justify-content: center;">
 
-      <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
+      <button class="btn btn-warning" color="accent" type="submit" *ngIf="!isLoading">Signup</button>
       </div>
     </form>
-</mat-card>
+  </div>
