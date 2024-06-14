@@ -44,6 +44,14 @@
           <i class="bi bi-chat mx-1 fs-5" (click)="onCommentToggle(true,post.id)"></i>
           <!-- <mat-icon class="action-item" color="Basic">share</mat-icon>  -->
           <i class="bi bi-send mx-1 fs-5"></i>
+
+         
+         
+
+        <div *ngIf="userIsAuthenticated && user.username===post.username">
+          <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+          <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+
         </div>
 
         <!-- <div *ngIf="userIsAuthenticated && user.username===post.username">
@@ -52,6 +60,7 @@
         </div> -->
 
       </div>
+    </div>
     </div>
   </cdk-virtual-scroll-viewport>
    <!-- <mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"

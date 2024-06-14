@@ -1,15 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from "@angular/router";
 import {Comment} from './comment.model';
 import { Subject, map } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class CommentsService {
+export class CommentsService implements OnInit{
     private comments: Comment[] = [];
     private commentsUpdated=new Subject<Comment[]> ;
+    isLoading = false;
 
 constructor(private http:HttpClient, private router: Router){ }
+  ngOnInit(): void {
+
+  }
 
 getPostComment(postId:string) {
     this.http
@@ -27,6 +31,7 @@ getPostComment(postId:string) {
         });
       }))
       .subscribe(postcommentData => {
+        console.log(postcommentData)
         // console.log('transformed Commments',postcommentData)
         this.comments= postcommentData;
         this.commentsUpdated.next([...postcommentData]);
@@ -58,12 +63,12 @@ addPostcomment(username:string,comment:string,postId){
 }
 
 deletePostcomment(commentId: string) {
-    this.http.delete("http://localhost:3000/api" + commentId)
+    this.http.delete("http://localhost:3000/api/comment/" + commentId)
       .subscribe(() => {
         const commentsUpdated = this.comments.filter(postcomment => postcomment.id  !== commentId);
         this.comments = commentsUpdated;
         this.commentsUpdated.next([...this.comments]);
-        console.log(this.comments)
+        //console.log(this.comments)
       });
   }
 

@@ -9,12 +9,20 @@
                     <div class="" style="width: fit-content;">
 
                         <span class="username"><span>&commat;</span>{{comment.username}}</span> 
+
                         <p class="">{{ comment.comment }}</p>
                     </div>
-                    <div *ngIf="comment.username===user.username" class="d-flex justify-content-between">
-                        <i class="bi bi-trash-fill"></i>
+                    <div *ngIf=" userIsAuthenticated && comment.username===user.username" class="d-flex justify-content-between">
+                        <i  (click)="onClickDelete(comment.id)" class="bi bi-trash-fill"></i>
+
+                        <p>{{ comment.comment }}</p>
+                        
+
                     </div>
-                
+                    <!-- <div *ngIf=" user.username===comment.username">         
+                        <mat-icon class="delete">delete_outline</mat-icon>
+                    </div> -->
+
                 </div>
             
                     <!-- <button mat-button color="primary">EDIT</button> -->

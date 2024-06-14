@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CommentsService } from './comments.service';
+import { PostsService } from "../posts.service";
+import { Post } from '../post.model';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -31,7 +33,7 @@ export class CommentComponent {
 
 
   ngOnInit(): void{
-
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.commentsService.getPostComment(this.postId);
     this.commentSub = this.commentsService.getCommentUpdateListener()
     .subscribe((comments : Comment[])=>{
@@ -53,9 +55,9 @@ export class CommentComponent {
     form.resetForm();
   }
 
-  // OnDeletecomment(commentId: string){
-    // this.commentsService.deletePostcomment(commentId);
-  // }
+  onClickDelete(commentId: string){
+     this.commentsService.deletePostcomment(commentId);
+   }
 
   ngOnDestroy(){
     this.commentSub.unsubscribe();

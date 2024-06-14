@@ -7,7 +7,9 @@ const userSchema = mongoose.Schema({
   username : String,
   dob: String,
   fullname : String,
-  emailverified : Boolean
+  emailverified : Boolean,
+  imagePath:{type:String,require:true},
+
 });
 
 userSchema.plugin(uniqueValidator);

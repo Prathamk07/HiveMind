@@ -130,7 +130,11 @@ router.get("",(req,res,next)=>{
     // const postId=req.params.postId
     // console.log(postId)
     const likeQuery=Like.find()
-    likeQuery.then((data)=>{  
+
+  
+
+    likeQuery.then((data)=>{
+
       // console.log(data)
       fetchedLikes=data
       return Like.count
