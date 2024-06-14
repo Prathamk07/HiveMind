@@ -222,7 +222,4 @@ const token=this.router.url
 
   }
   
-  getUserinfo(username: string){
-
-  }
 }
