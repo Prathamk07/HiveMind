@@ -9,6 +9,7 @@ import { ProfileComponent } from './auth/profile/profile.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 // import { AuthGuard } from './auth/auth.guard';
 import { ResetComponent } from './auth/reset/reset.component';
+import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
 const routes: Routes = [
   { path : '' , redirectTo:'home', pathMatch:'full'},
   { path: 'login', component: LoginComponent },
@@ -16,9 +17,11 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent},
   { path: 'reset/:token', component: ResetComponent},
   { path: 'posts', component: CreatePostComponent},
-  { path: 'edit/:id', component: CreatePostComponent  },
+  { path: 'edit/:postId', component: CreatePostComponent  },
   { path: 'home', component: HomepageComponent  },
-  {path: 'profile', component : ProfileComponent}
+  { path: 'profile', component : ProfileComponent},
+  { path: 'editprofile', component : EditProfileComponent},
+
 ];
 
 @NgModule({

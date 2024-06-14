@@ -63,6 +63,13 @@ p{
     margin: 0;
 }
 .username{
+    display: block;
     font-size: smaller;
     font-weight: 800;
+}
+.delete{
+   margin-left: 10px;
+   float: right;
+   margin-bottom: 0;
+   margin-top: 0;
 }

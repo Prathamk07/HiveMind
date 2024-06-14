@@ -10,8 +10,12 @@
 
                         <span class="username"><span>&commat;</span>{{comment.username}}</span> 
                         <p>{{ comment.comment }}</p>
+                        
                     </div>
-                
+                    <div *ngIf="userIsAuthenticated && user.username===comment.username">         
+                        <mat-icon class="delete" (click)="onClickDelete(comment.id)">delete_outline</mat-icon>
+                    </div>
+
                 </div>
             
                     <!-- <button mat-button color="primary">EDIT</button> -->

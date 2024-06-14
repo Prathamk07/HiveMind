@@ -36,6 +36,7 @@ import { ProfileComponent } from './auth/profile/profile.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { CommentComponent } from './posts/comment/comment.component';
+import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
 // import { AuthInterceptor} from './auth/auth-interceptor';
 
 
@@ -56,6 +57,7 @@ import { CommentComponent } from './posts/comment/comment.component';
     ForgotPasswordComponent,
     ResetComponent,
     CommentComponent,
+    EditProfileComponent,
     // ThemeProvider,
     
     // NgModel,

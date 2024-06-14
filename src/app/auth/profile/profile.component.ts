@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -7,7 +8,7 @@ import { AuthService } from '../auth.service';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  constructor(private authService : AuthService){
+  constructor(private authService : AuthService,private router : Router){
 
   }
   profile =this.authService.getProfile()
@@ -16,4 +17,8 @@ export class ProfileComponent {
   fullname=this.profile.fullname
   email=this.profile.email
   emailverified =this.profile.emailverified
+
+  onEditUser(){
+    this.router.navigate(['/editprofile'])
+  }
 }

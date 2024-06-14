@@ -3,7 +3,6 @@ const multer = require("multer");
 const Comment = require("../models/comment")
 const Post = require("../models/post");
 // const checkAuth = require("../middleware/check-auth");
-
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
@@ -67,15 +66,22 @@ router.put(
       const url = req.protocol + "://" + req.get("host");
       imagePath = url + "/images/" + req.file.filename;
     }
-    const post = {
+    const post = new Post({
       _id: req.body.id,
+      username: req.body.username,
       // title: req.body.title,
-      content: req.body.content,
+      caption: req.body.content,
        imagePath: imagePath
-    }
+    });
     console.log(post);
-    Post.updateOne({ _id: req.params.id }, post).then(result => {
-      res.status(200).json({ message: "Update successful!" });
+    Post.findByIdAndUpdate(req.params.id, {
+      caption: req.body.caption,
+      imagePath: imagePath,
+      username : req.body.username
+      // salary: req.body.salary
+    }).then(result => {
+      console.log(result);
+      res.status(200).json({ message: "Update successful!", updatedpost : result });
     });
   }
 );

@@ -14,6 +14,7 @@ export class AuthService {
  profile : any
  load =0
  user:any
+ //imagePath:string;
 //  username : string
 //  email : string
 //  fullname : string
@@ -44,8 +45,15 @@ export class AuthService {
   }
 
 
-  createUser(email: string, password: string,fullname:string,dob:string,username:string) {
-    const authData= {email: email, password: password,fullname:fullname,dob:dob,username:username,emailverified:false};
+  createUser(email: string, password: string,fullname:string,dob:string,username:string,image:File) {
+    const authData= {
+      email: email, 
+      password:password, 
+      fullname:fullname, 
+      dob:dob, 
+      username:username, 
+      image:image, 
+      emailverified:false};
     //post send req to backend (api/user/signup accept request)
     this.http
       .post("http://localhost:3000/api/user/signup", authData)
@@ -72,7 +80,8 @@ fetchProfile(){
           email: userData.user.email,
           fullname : userData.user.fullname,
           emailverified : userData.user.emailverified,
-          dob:userData.user.dob
+          dob:userData.user.dob,
+          imagePath:userData.user.imagePath
         };
       })
     // })

@@ -72,7 +72,7 @@ getPost(id: string) {
       postData.append("content", content);
       postData.append("image", image);
     }else{
-      const postData : Post = {
+       postData = {
         id: id,
         // title: title,
         username : username,
@@ -81,22 +81,10 @@ getPost(id: string) {
         likes : likes
       };
     }
+    console.log('Post Data :',postData)
     this.http
       .put("http://localhost:3000/api/posts/" + id, postData)
       .subscribe(response => {
-        const updatedPosts = [...this.posts];
-        const oldPostIndex = updatedPosts.findIndex(p => p.id === id);
-        const post: Post ={
-          id: id,
-          // title: title,
-          username:username,
-          content: content,
-          imagePath: "response.imagePath",
-          likes : likes
-        };
-        updatedPosts[oldPostIndex] = post;
-        this.posts = updatedPosts;
-        this.postsUpdated.next([...this.posts]);
         this.router.navigate(["/"]);
       });
   }

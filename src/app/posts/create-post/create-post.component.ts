@@ -16,11 +16,12 @@ export class CreatePostComponent implements OnInit {
   enteredTitle = "";
   enteredContent = "";
   isLoading = false;
-  post : Post;
   form: FormGroup;
   imagePreview: string;
   private mode = "create";
-  private postId: string='';
+  private postId: string;
+   post : Post;
+
   user:any
   constructor(
     public postsService: PostsService,
@@ -46,12 +47,13 @@ export class CreatePostComponent implements OnInit {
       this.router.navigate(['/login'])
     }
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if(paramMap.get("id")!==null){
+      if(paramMap.get('postId')){
         this.mode = "edit";
-        // console.log("edit")
-        this.postId = paramMap.get('id')
-        console.log('params',paramMap.get("id"))
+        this.postId = paramMap.get('postId');
+
+       // console.log('params',paramMap.get("id"))
         this.isLoading = true;
+
         this.post = (this.postsService.getPost(this.postId))
         this.isLoading = false;
         this.form.setValue({
@@ -62,7 +64,7 @@ export class CreatePostComponent implements OnInit {
       } else {
         this.mode = "create";
         console.log('create')
-        this.postId = '';
+        this.postId = null;
       }
     });
   }
@@ -103,7 +105,7 @@ export class CreatePostComponent implements OnInit {
         this.postsService.updatePost(
           this.postId,
           // this.form.value.title,
-          this.user.userId,
+          this.user.username,
           this.form.value.content,
           this.form.value.image,
           '0'
