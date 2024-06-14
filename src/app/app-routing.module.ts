@@ -30,7 +30,7 @@ const routes: Routes = [
   {path:'messages', component: MessagesComponent},
 
   // { path: 'profile', component : ProfileComponent},
-  { path: 'editprofile', component : EditProfileComponent},
+  { path: 'editprofile/:username', component : EditProfileComponent},
 
 
 ];
