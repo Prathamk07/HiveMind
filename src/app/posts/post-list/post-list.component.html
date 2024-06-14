@@ -48,11 +48,7 @@
          
          
 
-        <div *ngIf="userIsAuthenticated && user.username===post.username">
-          <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-          <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
-
-        </div>
+    
 
         <!-- <div *ngIf="userIsAuthenticated && user.username===post.username">
           <a [routerLink]="['/edit/', post.id]">EDIT</a>

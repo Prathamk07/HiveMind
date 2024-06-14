@@ -57,6 +57,43 @@ router.post(
   }
 );
 
+// router.put(
+//   "/:id",
+//    multer({ storage: storage }).single("image"),
+//   (req, res, next) => {
+//     let imagePath = req.body.imagePath;
+//     if (req.file) {
+//       const url = req.protocol + "://" + req.get("host");
+//       imagePath = url + "/images/" + req.file.filename;
+//     }
+//     const post = new Post({
+//       _id: req.body.id,
+//       username: req.body.username,
+//       // title: req.body.title,
+
+//       username : req.body.username,
+//       caption: req.body.content,
+//        imagePath: imagePath
+//     })
+//     // console.log(post);
+//     // Post.updateOne({ _id: req.params.id }, post).then(result => {
+//     //   res.status(200).json({ message: "Update successful!" });
+
+//     //   caption: req.body.content,
+//     //    imagePath: imagePath
+//     // });
+//     // console.log(post);
+//     Post.findByIdAndUpdate(req.params.id, {
+//       caption: req.body.caption,
+//       imagePath: imagePath,
+//       username : req.body.username
+//       // salary: req.body.salary
+//     }).then(result => {
+//       console.log(result);
+//       res.status(200).json({message : 'updated successfully', response:result})
+//     });
+//   }
+// );
 router.put(
   "/:id",
    multer({ storage: storage }).single("image"),
@@ -66,35 +103,19 @@ router.put(
       const url = req.protocol + "://" + req.get("host");
       imagePath = url + "/images/" + req.file.filename;
     }
-    const post = new Post({
+    const post = {
       _id: req.body.id,
-      username: req.body.username,
       // title: req.body.title,
-
       username : req.body.username,
       caption: req.body.content,
        imagePath: imagePath
-    })
+    }
     // console.log(post);
-    // Post.updateOne({ _id: req.params.id }, post).then(result => {
-    //   res.status(200).json({ message: "Update successful!" });
-
-    //   caption: req.body.content,
-    //    imagePath: imagePath
-    // });
-    // console.log(post);
-    Post.findByIdAndUpdate(req.params.id, {
-      caption: req.body.caption,
-      imagePath: imagePath,
-      username : req.body.username
-      // salary: req.body.salary
-    }).then(result => {
-      console.log(result);
-
+    Post.updateOne({ _id: req.params.id }, post).then(result => {
+      res.status(200).json({ message: "Update successful!" });
     });
   }
 );
-
 router.get("/all", (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;

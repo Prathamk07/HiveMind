@@ -1,38 +1,29 @@
-<div class="edit-profile">
-    <form [formGroup]="form" (Submit)="onSubmit()">
-      <!--<form #editprofileForm="ngForm" (Submit)="onSubmit(editprofileForm)">-->  
-        <h1 class="h1-strong">Edit Profile</h1>
+<div class="user-edit">
+    <!-- <div *ngIf="isLoading">loading</div> -->
 
-       <!-- <h1 class="h1-strong">{{title}}</h1>
-
-        <div class="alert alert-success" *ngIf="status == 'success'">
-            Account details updated successfully.
-        </div>
-  
-        <div class="alert alert-danger" *ngIf="status == 'error'">
-             Error updating account details.
-        </div>-->  
-
-        <div class="col-md-6 form-group">
-            <!--<p>
-                <label>Bio</label>
-                <input class="form-control" name="bio" ngModel type="text" placeholder="add some information in your bio" #bioInput="ngModel" required bio/>
-            </p>-->
-        </div>
-
-        <div class="col-md-6 form-group">
+    <form [formGroup]="form" (Submit)="onSubmit()" *ngIf="!isLoading">
+        <h1 class="h1-strong">Edit profile</h1>
+        
+        <div class="form-group">
             <p>
-                <input type="file" name="file" id="file" class="inputfile" (change)="fileChangeEvent($event)"/>
-                <label for="file">Select an image</label>
+                <label>Name</label>
+                <input type="text" formControlName="fullname" class="form-control" placeholder="Fullname" >
             </p>
-            <div *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
-                <img [src]="imagePreview" [alt]="form.value.title" class="upload-image" width="100" height="100"/>
-            </div>
+            <p>
+                <label>Username</label>
+                <input type="text" formControlName="username" class="form-control" placeholder="User Name" >
+            </p>
+            <p>
+                <label>Bio</label>
+                <textarea formControlName="bio" class="form-control" placeholder="Bio" ></textarea>
+            </p>
+            <p>
+                <label>Date of Birth</label>
+                <input type="date" formControlName="dob" class="form-control" placeholder="Date of Birth" >
+            </p>
         </div>
-
-        <div class="col-md-12 form-group">
-            <input  type="submit" color='accent' value="Update" class="btn btn-warning" />
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-warning" />
         </div>
-
     </form>
 </div>

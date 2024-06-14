@@ -1,45 +1,78 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
-import { AuthService } from "../auth.service";
-import { Router } from "@angular/router";
-import { mimeType } from './mime-type.validator1';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css'
 })
-export class EditProfileComponent implements OnInit{
-//public title: string;
-// public status: string;
-form: FormGroup;
-imagePreview: string;
+export class EditProfileComponent implements OnInit {
+  isLoading = false;
+  form: FormGroup;
+  user: any;
+  username: string;
 
-constructor(public authService: AuthService,private router:Router) {}
-
-ngOnInit() {
-  this.form = new FormGroup({
-    image: new FormControl(null, {
-      validators: [Validators.required],
-      asyncValidators: [mimeType]
-    }),
-  })
-}
-
-fileChangeEvent(event: Event){
-  const file = (event.target as HTMLInputElement).files[0];
-  this.form.patchValue({ image: file });
-  this.form.get("image").updateValueAndValidity();
-  const reader = new FileReader();
-  reader.onload = () => {
-   this.imagePreview = reader.result as string;
-  };
-  reader.readAsDataURL(file);
-}
-
-  onSubmit(){
+  constructor(    
+    public route: ActivatedRoute,
+    public authService:AuthService,
+    public router : Router
+  ){
+   
+  }
+  
+  ngOnInit(){
+  
+  
+    if(!this.authService.getIsAuth()){
+      this.router.navigate(['/login'])
+    }
+    this.form = new FormGroup({
+      fullname: new FormControl(),
+      username: new FormControl(),
+      //bio: new FormControl(),
+      dob: new FormControl(),
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if(paramMap.get("username")!==null){
+        this.username = paramMap.get("username")
+        console.log('params',paramMap.get("username"))
+        this.isLoading = true;
+        this.authService.getUsers(this.username)
+        this.authService.getUserProfile().subscribe(data=>{
+          this.user=data
+          console.log(data)
+        this.form.setValue({
+          fullname: this.user.fullname,
+          username: this.user.username,
+          // bio: this.user.bio,
+           dob: this.user.dob
+          });
+        })
+        this.isLoading = false;
+      }
+      
+    })
   }
 
- // fileChangeEvent(fileInput: any){
-   // this.filesToUpload = <Array<File>>fileInput.target.files;
-//}
+  getProfile(){
+    this.user=this.authService.getProfile()
+    console.log(this.user.userId)
+  }
+
+  onSubmit(){
+    if (this.form.invalid) {
+      return;
+    }
+    this.isLoading = true;
+    this.getProfile()
+    this.authService.updateUser(
+      this.form.value.fullname,
+      this.form.value.username,
+      //this.form.value.bio,
+      this.form.value.dob
+    );
+    this.form.reset();
+  }
 }

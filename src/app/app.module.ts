@@ -54,6 +54,7 @@ import { EditProfileComponent } from './auth/edit-profile/edit-profile.component
     ResetComponent,
     CommentComponent,
     MessagesComponent,
+    EditProfileComponent,
     // ChattingComponent,
 
     EditProfileComponent,

@@ -36,13 +36,8 @@ export class CreatePostComponent implements OnInit {
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
-    
     }),
-      
-      
     });
-  
-        
     if(!this.authService.getIsAuth()){
       this.router.navigate(['/login'])
     }
@@ -99,19 +94,22 @@ export class CreatePostComponent implements OnInit {
           this.form.value.image,
           '0',
         );
-        console.log(this.user.userId)
+        //console.log(this.user.userId)
       } else {
-        console.log(this.form.value.content),
-        this.postsService.updatePost(
-          this.postId,
-          // this.form.value.title,
-          this.user.username,
-          this.form.value.content,
-          this.form.value.image,
-          '0'
+       // console.log(this.form.value.content),
+       console.log(this.form.value.content),
+       this.postsService.updatePost(
+         this.postId,
+         // this.form.value.title,
+         this.user.username,
+         this.form.value.content,
+         this.form.value.image,
+         '0'
+         // '0'
+       );
+       
           // '0'
-        );
-      }
+              }
       this.form.reset();
     }
 

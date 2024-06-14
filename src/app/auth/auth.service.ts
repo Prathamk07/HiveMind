@@ -22,6 +22,7 @@ export class AuthService {
 //  emailverified : boolean
 
  private authStatusListener = new Subject<boolean>();
+  userData: any;
 
   constructor(private http: HttpClient, private router: Router, private cookieService : CookieService) {
     if(cookieService.get('token')){
@@ -46,6 +47,7 @@ export class AuthService {
   }
 
 
+
   createUser(email: string, password: string,fullname:string,dob:string,username:string,image:File) {
     const authData= {
       email: email, 
@@ -55,6 +57,7 @@ export class AuthService {
       username:username, 
       image:image, 
       emailverified:false};
+
     //post send req to backend (api/user/signup accept request)
     this.http
       .post("http://localhost:3000/api/user/signup", authData)
@@ -225,4 +228,9 @@ const token=this.router.url
       alert("Password has been resetted. You can log in again")
   });
   }
+
+  updateUser(fullname:string, username: string, dob:string ){
+
+  }
+  
 }

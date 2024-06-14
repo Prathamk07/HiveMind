@@ -98,6 +98,46 @@ export class PostsService {
     return this.likesUpdated.asObservable();
   }
 
+  // updatePost(id: string, username:string, content: string, image: File | string,likes:string) {
+  //   let postData: Post | FormData;
+  //   console.log('userid',username)
+  //   if (typeof(image) === 'object') {
+  //     postData = new FormData();
+  //     postData.append("id", id);
+  //     postData.append("username",username)
+  //     // postData.append("title", title);
+  //     postData.append("content", content);
+  //     postData.append("image", image);
+  //     }else{
+  //       postData = {
+  //         id: id,
+  //         // title: title,
+  //         username : username,
+  //         content: content,
+  //         imagePath: image,
+  //         likes : likes
+  //         };
+  //         }
+  //         console.log(postData)
+  //         this.http
+  //         .put("http://localhost:3000/api/posts/" + id, postData)
+  //         .subscribe(response => {
+  //           const updatedPosts = [...this.posts];
+  //           const oldPostIndex = updatedPosts.findIndex(p => p.id === id);
+  //           const post={
+  //            id: id,
+  //         // title: title,
+  //            username:username,
+  //            content: content,
+  //             imagePath: "response.imagePath",
+  //            likes : likes
+  //         };
+  //         updatedPosts[oldPostIndex] = post;
+  //         this.posts = updatedPosts;
+  //         this.postsUpdated.next([...this.posts]);
+  //         this.router.navigate(["/"]);
+  //         });
+  //         }
   updatePost(id: string, username:string, content: string, image: File | string,likes:string) {
     let postData: Post | FormData;
     console.log('userid',username)
@@ -108,21 +148,21 @@ export class PostsService {
       // postData.append("title", title);
       postData.append("content", content);
       postData.append("image", image);
-      }else{
-        postData = {
-          id: id,
-          // title: title,
-          username : username,
-          content: content,
-          imagePath: image,
-          likes : likes
-          };
-          }
-          console.log(postData)
-          this.http
-          .put("http://localhost:3000/api/posts/" + id, postData)
-          .subscribe(response => {
-            const updatedPosts = [...this.posts];
+    }else{
+       postData = {
+        id: id,
+        // title: title,
+        username : username,
+        content: content,
+        imagePath: image,
+        likes : likes
+      };
+    }
+    console.log(postData)
+    this.http
+      .put("http://localhost:3000/api/posts/" + id, postData)
+      .subscribe(response => {
+        const updatedPosts = [...this.posts];
         const oldPostIndex = updatedPosts.findIndex(p => p.id === id);
         const post: Post ={
           id: id,
@@ -131,14 +171,13 @@ export class PostsService {
           content: content,
           imagePath: "response.imagePath",
           likes : likes
-          };
-          updatedPosts[oldPostIndex] = post;
-          this.posts = updatedPosts;
-          this.postsUpdated.next([...this.posts]);
-          this.router.navigate(["/"]);
-          });
-          }
-          
+        };
+        updatedPosts[oldPostIndex] = post;
+        this.posts = updatedPosts;
+        this.postsUpdated.next([...this.posts]);
+        this.router.navigate(["/"]);
+      });
+  }    
           
           addPost(username:string,content: string, image: File,likes:string) {
             const postData = new FormData();
