@@ -46,7 +46,7 @@ export class AuthService {
   }
 
 
-  createUser(email: string, password: string,fullname:string,dob:string,username:string) {
+  createUser(email: string, password: string,fullname:string,dob:string,username:string,) {
     const authData= {email: email, password: password,fullname:fullname,dob:dob,username:username,emailverified:false};
     //post send req to backend (api/user/signup accept request)
     this.http
