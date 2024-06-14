@@ -38,7 +38,7 @@ let resetToken=''
 let userToken = ''
 router.post(
   "/signup", 
-  multer({ storage: storage }).single("image"),
+  // multer({ storage: storage }).single("image"),
   (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
@@ -48,7 +48,7 @@ router.post(
       dob : req.body.dob,
       fullname : req.body.fullname,
       emailverified : req.body.emailverified,
-      imagePath: url + "/images/" + req.file.filename,
+      // imagePath: url + "/images/" + req.file.filename,
     });
     user
       .save()
@@ -205,7 +205,7 @@ router.post("/login", (req, res, next) => {
       }
       userToken = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id ,fullname : fetchedUser.fullname,dob : fetchedUser.dob,username:fetchedUser.username,emailverified:fetchedUser.emailverified},"secret_this_should_be_longer");
       console.log(userToken);
-      res.cookie('cookie',userToken)
+      // res.cookie('cookie',userToken)
       res.status(200).json({
         token: userToken,
       });
