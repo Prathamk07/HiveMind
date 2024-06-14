@@ -50,6 +50,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.likeSub=this.postsService.getLikeUpdateListener()
       .subscribe((likes:any)=>{
         this.likecount=likes.length
+        
         console.log('Likes : ',likes)
       })
       if(this.userIsAuthenticated===false){

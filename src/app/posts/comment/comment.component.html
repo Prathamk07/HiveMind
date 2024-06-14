@@ -5,11 +5,14 @@
         <p class="info-text mat-body-1" *ngIf="comments.length<=0">No posts added yet!</p>
         <div class="scrollablecomments" *ngIf="comments.length>0">
             
-                <div class="d-flex border border-1 rounded-2 p-2 my-2"  *ngFor="let comment of comments">
+                <div class="d-flex justify-content-between border border-1 rounded-2 p-2 my-2"  *ngFor="let comment of comments">
                     <div class="" style="width: fit-content;">
 
                         <span class="username"><span>&commat;</span>{{comment.username}}</span> 
                         <p class="">{{ comment.comment }}</p>
+                    </div>
+                    <div *ngIf="comment.username===user.username" class="d-flex justify-content-between">
+                        <i class="bi bi-trash-fill"></i>
                     </div>
                 
                 </div>

@@ -2,3 +2,19 @@
     width: 40%;
     margin: auto;
 }
+.postitem{
+    /* width: ; */
+    height: 500px;
+}
+.images{
+    height: 450px;
+    width: inherit;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.profilepic{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    /* margin-top: 5%; */
+}

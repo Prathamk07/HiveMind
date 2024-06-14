@@ -6,8 +6,9 @@
       <div class="postss" style="width:480px;" *cdkVirtualFor="let post of posts">
         <div class="post-image" style="margin-top: 5%;">
           <div class="username d-flex justify-content-between">
-            <p class="" style="text-align: left;">
-              <a [routerLink]="['/profile/',post.username]">
+            <p class="mt-2" style="text-align: left;">
+              <img class="profilepic" src="../../../assets/profileblank.webp" alt="">
+              <a class="text-decoration-none text-black fw-bold" [routerLink]="['/profile/',post.username]">
                 {{post.username }}
               </a>
             </p>
@@ -57,4 +58,5 @@
   *ngIf="posts.length > 0"></mat-paginator>-->
 
   <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
+  <!-- <p class="info-text mat-body-1" *ngIf="posts.name!=='Durgesh'">No posts added yet!</p> -->
 </div>

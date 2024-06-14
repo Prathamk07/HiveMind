@@ -1,7 +1,7 @@
 <div>
   <div *ngIf="isLoading">loading</div>
 
-  <div class="container-padding">
+  <div class="container padding p-4 border border-1 rounded-3">
     <div class="container">
       <h2>
         Make a new post
@@ -11,24 +11,24 @@
     <form [formGroup]="form" class="container-padding" (submit)="onSavePost()" *ngIf="!isLoading" >
    
       <div>
-        <button mat-stroked-button type="button" (click)="filePicker.click()"> Pick Image</button>
-        <input type="file" #filePicker (change)="onImagePicked($event)">
-      </div>
-
+        <button class="bg-light rounded-3 border border-1 p-4 fs-3 my-3 mx-auto" type="button" (click)="filePicker.click()"> +</button>
       <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
-        <img [src]="imagePreview" [alt]="form.value.title">
+        <img class=" rounded-3" [src]="imagePreview" [alt]="form.value.title">
       </div>
+        </div>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
+
 
       <div>
         <textarea
-          matInput
+          class="rounded-3 form-control "
           rows="4"
           formControlName="content"
           placeholder="Post Content"></textarea>
         <label *ngIf="form.get('content').invalid">Please enter a post title.</label>
       </div>
       <button
-        mat-button
+        class="my-4 p-3 rounded-3 bg-warning border border-1"
         type="submit">
           Save Post
 </button>

@@ -81,7 +81,7 @@ router.put(
   }
 );
 
-router.get("", (req, res, next) => {
+router.get("/all", (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
   const postQuery = Post.find();
@@ -102,6 +102,15 @@ router.get("", (req, res, next) => {
       });
     });
 });
+
+router.get("/userposts/:username",(req,res,next)=>{
+  Post.find({username : req.params.username})
+  .then((result)=>{
+    console.log('result',result)
+    res.status(200).json({message : 'user posts fetched successfully', posts : result})
+  })
+
+})
 
 router.get("/:id", (req, res, next) => {
   Post.findById(req.params.id).then(post => {

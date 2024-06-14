@@ -93,6 +93,12 @@ mat-accordion{
     
 
 }
+.profilepic{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    /* margin-top: 5%; */
+}
 .post-image {
     width: fit-content;
   
@@ -133,6 +139,7 @@ cdk-virtual-scroll-viewport{
 }
 .username{
     text-align: left;
+    margin-top: 5%;
     margin: 5%;
 }
 .action-item{

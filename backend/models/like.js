@@ -1,4 +1,4 @@
-const mongoose=require('mongoose');
+    const mongoose=require('mongoose');
 
 const likeSchema = mongoose.Schema({
     // title:{type:String,required:true},

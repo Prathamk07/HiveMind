@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PostsService } from '../../posts/posts.service';
+import { Post } from '../../posts/post.model';
 
 @Component({
   selector: 'app-profile',
@@ -14,10 +16,12 @@ export class ProfileComponent {
   username:any
   getuser:any;
   getUserSub: Subscription
+  posts : any
+  postsSub : Subscription
   // fullname:string
   // email:string
   // emailverified:string
-  constructor(private authService : AuthService,private route: ActivatedRoute ,private router: Router){
+  constructor(private authService : AuthService,private route: ActivatedRoute ,private router: Router,private postService: PostsService){
 
   }
   ngOnInit(): void {
@@ -41,8 +45,14 @@ export class ProfileComponent {
         // this.emailverified =this.getuser.emailverified
         })
         
-      }
-      
+        
+      this.postService.getUserPosts(this.username)
+      this.postsSub=this.postService.getUserPostsUpdateListener()
+      .subscribe(data=>{
+        this.posts=data
+      })
+        }
+        
       
    
 }
