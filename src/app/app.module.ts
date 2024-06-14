@@ -27,6 +27,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { ResetComponent } from './auth/reset/reset.component';
 import { CommentComponent } from './posts/comment/comment.component';
 import { MessagesComponent } from './chat/messages/messages.component';
+import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
 // import { ChattingComponent } from './chatting/chatting.component';
 // import { AuthInterceptor} from './auth/auth-interceptor';
 
@@ -49,6 +50,7 @@ import { MessagesComponent } from './chat/messages/messages.component';
     ResetComponent,
     CommentComponent,
     MessagesComponent,
+    EditProfileComponent,
     // ChattingComponent,
     // ThemeProvider,
     

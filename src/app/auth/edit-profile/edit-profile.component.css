@@ -1,0 +1,43 @@
+.h1-strong{
+    text-align: center;
+    font-family: "Comfortaa";
+    margin-bottom: 15px;
+}
+
+.user-edit form{
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 5px 10px 18px #888888;
+  margin: 20px 315px;
+  padding: 30px 40px;
+}
+
+.user-edit p {
+  margin-bottom: 20px;
+}
+
+.user-edit label{
+    font-family: "Comfortaa";
+    font-size: 16px;
+}
+
+.user-edit input {
+  width: 100%;
+  display: block;
+  margin-top: 8px;
+  padding: 7px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: 1px solid #ccddef;
+}
+
+.btn-warning{
+    display: block;
+    min-width: 120px;
+    max-width: 200px;
+    border: none;
+    color: black;
+    border-radius: 25px;
+    margin: auto;
+    padding: 7px;
+  }

@@ -10,6 +10,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 // import { AuthGuard } from './auth/auth.guard';
 import { ResetComponent } from './auth/reset/reset.component';
 import { MessagesComponent } from './chat/messages/messages.component';
+import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
 // import { MessagesComponent } from './chatting/messages/messages.component';
 const routes: Routes = [
   { path : '' , redirectTo:'home', pathMatch:'full'},
@@ -21,8 +22,11 @@ const routes: Routes = [
   { path: 'edit/:id', component: CreatePostComponent  },
   { path: 'home', component: HomepageComponent  },
   // {path: 'profile', component : ProfileComponent},
-  {path:'profile/:username',component:ProfileComponent},
-  {path:'messages', component: MessagesComponent}
+  { path:'profile/:username',component:ProfileComponent},
+  { path: 'edit/:username', component: EditProfileComponent},
+  { path:'messages', component: MessagesComponent},
+  { path: 'editprofile/:username', component : EditProfileComponent},
+
 ];
 
 @NgModule({

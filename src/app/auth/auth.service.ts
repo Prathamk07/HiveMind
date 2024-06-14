@@ -21,6 +21,7 @@ export class AuthService {
 //  emailverified : boolean
 
  private authStatusListener = new Subject<boolean>();
+  userData: any;
 
   constructor(private http: HttpClient, private router: Router, private cookieService : CookieService) {
     if(cookieService.get('token')){
@@ -215,5 +216,13 @@ const token=this.router.url
       //       }
       alert("Password has been resetted. You can log in again")
   });
+  }
+
+  updateUser(fullname:string, username: string, dob:string ){
+
+  }
+  
+  getUserinfo(username: string){
+
   }
 }

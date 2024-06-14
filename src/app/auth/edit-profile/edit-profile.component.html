@@ -1,0 +1,29 @@
+<div class="user-edit">
+    <div *ngIf="isLoading">loading</div>
+
+    <form [formGroup]="form" (Submit)="onSubmit()" *ngIf="!isLoading">
+        <h1 class="h1-strong">Edit profile</h1>
+        
+        <div class="form-group">
+            <p>
+                <label>Name</label>
+                <input type="text" formControlName="fullname" class="form-control" placeholder="Fullname" >
+            </p>
+            <p>
+                <label>Username</label>
+                <input type="text" formControlName="username" class="form-control" placeholder="User Name" >
+            </p>
+            <p>
+                <label>Bio</label>
+                <textarea formControlName="bio" class="form-control" placeholder="Bio" ></textarea>
+            </p>
+            <p>
+                <label>Date of Birth</label>
+                <input type="date" formControlName="dob" class="form-control" placeholder="Date of Birth" >
+            </p>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-warning" />
+        </div>
+    </form>
+</div>

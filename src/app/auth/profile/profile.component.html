@@ -6,8 +6,8 @@
         <p>Full Name : {{getuser.fullname}}</p>
         <p>User Name : {{getuser.username}}</p>
         <p>email verified : {{getuser.emailverified}}</p>
+        <a [routerLink]="['/editprofile/',getuser.username]" >edit profile</a>
+        <!-- (click)="onEditUser()" -->
     </div>
 
-
-  
 </div>
