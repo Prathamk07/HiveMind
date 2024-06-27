@@ -21,7 +21,7 @@ export class CommentComponent {
   onToggleComment(){
     this.toggleCommentEvent.emit(false)
   }
-  @Input() postId : string;
+  @Input() post : any;
   enteredComment = "";
   private mode = "create";
   private commentId: string='';
@@ -34,7 +34,7 @@ export class CommentComponent {
 
   ngOnInit(): void{
     this.userIsAuthenticated = this.authService.getIsAuth();
-    this.commentsService.getPostComment(this.postId);
+    this.commentsService.getPostComment(this.post.id);
     this.commentSub = this.commentsService.getCommentUpdateListener()
     .subscribe((comments : Comment[])=>{
       // this.isLoading = false;
@@ -51,7 +51,7 @@ export class CommentComponent {
     if (form.invalid) {
       return;
     }
-    this.commentsService.addPostcomment(this.user.username,form.value.comment,this.postId);
+    this.commentsService.addPostcomment(this.user.username,form.value.comment,this.post.id);
     form.resetForm();
   }
 

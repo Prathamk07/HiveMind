@@ -1,0 +1,9 @@
+.sidelink:hover{
+    background-color: beige;
+}
+.sidelink{
+    background-color: white;
+    border: 0;
+    border-radius: 10px;
+    
+}

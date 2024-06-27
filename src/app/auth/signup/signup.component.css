@@ -21,6 +21,6 @@ mat-form-field {
   }
   button{
     font-family: "Comfortaa";
-    margin: auto;
-    width: 30%;
+    /* margin: auto; */
+    /* width: 30%; */
   }

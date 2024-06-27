@@ -11,6 +11,8 @@ import { PostListComponent } from '../posts/post-list/post-list.component';
 })
 export class HomepageComponent {
   @Output() authEvent = new EventEmitter<boolean>();
+  user:any
+  userList : []
 constructor(private authService:AuthService,private router: Router){
   
   if(!this.authService.getIsAuth){
@@ -22,6 +24,13 @@ constructor(private authService:AuthService,private router: Router){
   }
   
 }
+ngOnInit(): void {
+  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+  //Add 'implements OnInit' to the class.
+  this.user=this.authService.getProfile()
+  this.userList = []
+}
+
 
 
 }

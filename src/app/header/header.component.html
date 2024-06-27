@@ -69,7 +69,7 @@
                   </div>
                   </div>
                   </div> -->
-                  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-warning bg-gradient bg-opacity-75 ">
+                  <nav class="navbar navbar-expand-lg sticky-top">
                     <div class="container-fluid text-white ">
     <a class="navbar-brand" href="#"><img src="../../assets/hivemindpng.png" width="150" alt=""></a>
     
@@ -79,16 +79,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" *ngIf="loggedin" href="/posts" aria-current="page" >Create Post</a>
+          <a class="nav-links" *ngIf="loggedin" href="/posts" aria-current="page" >Create Post</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="loggedin" [routerLink]="['/messages']" aria-current="page" >Messages</a>
+          <a class="nav-links" *ngIf="loggedin" [routerLink]="['/messages']" aria-current="page" >Messages</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer;" *ngIf="loggedin" (click)="onLogout()">Logout</a>
+          <a class="nav-links" style="cursor: pointer;" *ngIf="loggedin" (click)="onLogout()">Logout</a>
         </li>
         <li *ngIf="loggedin" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-links dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Menu
           </a>
           <ul   class="dropdown-menu">

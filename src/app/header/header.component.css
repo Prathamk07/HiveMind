@@ -1,159 +1,22 @@
-mat-toolbar{
-    background-color: #ebfaad;
-    color: #ED9455;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-.bg-warning{
-  background-color: #ebfaad
+nav{
+  background-color: #FAE231;
+  /* font-weight: 700; */
+  color: black;
+  opacity: 100%;
+  text-decoration: none;
+  z-index: 800;
 }
-mat-toolbar{
-  .mat-accent{
-    /* background-color: #000000; */
-    color: rgb(197, 108, 0);
-}  
+.nav-links{
+  text-decoration: none;
+  color: black;
+  margin-left: 20px;
+  font-weight: 900;
+  font-family: 'Comfortaa';
 }
-.bulleticons{
-  .mat-accent{
-background-color: rgba(255, 255, 255, 0)smoke;
-    color: white;
-  }
+.nav-links:hover{
+  text-decoration: none;
+  color: #646464;
+  margin-left: 20px;
+  font-weight: 900;
+  font-family: 'Comfortaa';
 }
-.mat-accent{
-    background-color: #ffe365;
-    color: rgb(255, 255, 255);
-}
-.nomargin{
-    margin: 0;
-    padding: 0;
-      
-}
-.sidebar{
-  background-color: #b58118;
-  color: white;
-  a{
-    color: white;
-  }
-  mat-icons{
-    color: white;
-  }
-  mat-icons{
-    transition-duration: 100ms;
-    
-  }
-}
-
-
-
-.mat-elevation-z8{
-    height: 100vh;
-}
-.imglogo{
-  width: 180px;
-  margin: auto;
-  align-items: center;
-}
-.flexlogo{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2%;
-  box-shadow: #ED9455;
-  text-shadow: #ED9455;
-}
-.logo{
-    display: flex;
-
-align-items: center ;
-margin: 0 2%;
-
-}
-a{
-    text-decoration: none;
-    color: black;
-    font-family: "Comfortaa";
-    font-weight: 700;
-}
-h3{
-  font-family: "Comfortaa";
-}
-
-
-
-.navlink{
-    margin: 0 2% 0 2%;
-}
-mat-toolbar {
-    background: #FEFDED;
-    color: white;
-    font-family: "Comfortaa";
-  }
-  
-  mat-sidenav {
-    margin: 55px 12px;
-    width: 200px;
-    border-right: none;
-    background: #002b5c;
-    color: white;
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
-    font-family: "Comfortaa";
-  }
-  
-  .content {
-    height: calc(100vh - 130px);
-    border-radius: 10px;
-    margin: 16px 0;
-    margin-left: 32px;
-  
-    padding: 16px;
-  
-    overflow: auto;
-  }
-  
-  mat-sidenav-container {
-    height: calc(100vh - 65px);
-    margin-top: 10%;
-  }
-  
-  .sidenavcontents{
-    height: 10%;
-  }
-
-  .menu-button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    font-size: 1rem;
-  
-    mat-icon {
-      margin-right: 8px;
-    }
-  }
-  
-  .avatar {
-    margin-top: 16px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-  }
-  
-  .name {
-    margin-top: 8px;
-    font-weight: normal;
-  }
-  
-  .designation {
-    margin-top: 2px;
-    font-size: 0.7rem;
-    color: lightgrey;
-  }
-  
-  mat-divider {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
-  }

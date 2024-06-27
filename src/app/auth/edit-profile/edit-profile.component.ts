@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Form, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
     this.form = new FormGroup({
       fullname: new FormControl(),
       username: new FormControl(),
-      //bio: new FormControl(),
+      bio: new FormControl(),
       dob: new FormControl(),
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -46,8 +46,8 @@ export class EditProfileComponent implements OnInit {
         this.form.setValue({
           fullname: this.user.fullname,
           username: this.user.username,
-          // bio: this.user.bio,
-           dob: this.user.dob
+          dob: this.user.dob,
+          bio: this.user.bio,
           });
         })
         this.isLoading = false;
@@ -58,7 +58,7 @@ export class EditProfileComponent implements OnInit {
 
   getProfile(){
     this.user=this.authService.getProfile()
-    console.log(this.user.userId)
+    // console.log(this.user.userId)
   }
 
   onSubmit(){
@@ -67,12 +67,15 @@ export class EditProfileComponent implements OnInit {
     }
     this.isLoading = true;
     this.getProfile()
+    const currentuser= this.authService.getProfile()
     this.authService.updateUser(
+      currentuser.id,
       this.form.value.fullname,
       this.form.value.username,
-      //this.form.value.bio,
-      this.form.value.dob
+      this.form.value.dob,
+      this.form.value.bio,
     );
+    console.log(currentuser.id)
     this.form.reset();
   }
 }

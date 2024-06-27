@@ -5,12 +5,6 @@ mat-card{
     
 }
 
-.container{
-    width: 70%;
-    margin: auto;
-    margin-top: 2%;
-    text-align: center;
-}
 
 mat-form-field,
 textarea{

@@ -1,1 +1,53 @@
-<p>messages works!</p>
+<div style="height: 90vh;" class="container">
+  <!-- <app-usernname (userNameEvent)="userNameUpdate($event)" *ngIf="!userName"></app-usernname> -->
+  <app-username *ngIf="!userName" ></app-username>
+  <div class="grid row mt-5">
+    <div class="col-md-3">
+      
+    </div>
+    <div class="col-md-3 border border-1 rounded-3">
+        <h1>Messages</h1>
+        <h2>User list</h2>
+        <div class="container d-block" *ngFor="let user of userList" >
+          <div class="col-12">{{ user }}</div><br/>
+        </div>
+      </div>
+      <div style="height: 80vh;" class="col-md-6 border border-1 rounded-3">
+        <div class="" *ngFor="let msg of messageList" >
+          <div *ngIf="msg.mine" class="d-flex justify-content-end">
+        <div class="border border-1 mt-2 rounded-4 pt-0 p-3">
+
+          <span style="font-size: small;" class="m-0 text-sm">{{ msg.userName }}</span>
+          <br>
+          <span class="m-0" >{{ msg.message}}</span>
+        </div>
+             
+             
+          </div>
+          <div *ngIf="!msg.mine" class="d-flex justify-content-start">
+        <div class="border border-1 mt-2 rounded-4">
+
+          <span style="font-size: small;" class="m-0 text-sm">{{ msg.userName }}</span>
+          <br>
+          <span class="m-0" >{{ msg.message}}</span>
+        </div>
+           
+           
+        </div>
+        </div>
+        <div  style="position: fixed; bottom: 0; width: 50%;">
+
+          <div class="row  mb-5">
+            <div class=" col-md-10">
+              
+              <input type="text" class="form-control" [(ngModel)]="message">
+            </div>
+            <div class="col-md-2">
+              
+              <button class="btn btn-primary "  (click)="sendMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

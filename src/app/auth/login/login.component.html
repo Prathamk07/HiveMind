@@ -1,42 +1,55 @@
-<div class="container col-8 mt-5 border border-1 p-5 rounded-3">
+<div class="">
   <div class="" *ngIf="isLoading">loading</div>
-
-  <h2>Log In to your account</h2>
-
-  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
-
-    <div>
-      <input class="form-control mb-4" name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
-      <!-- <label *ngIf="emailInput.invalid">Please enter a valid email.</label> -->
+  <div class="grid row">
+    <div class="col-md-6 d-none d-md-block">
+      <img style="width: 100%; height: fit-content;" src="../../../assets/Login.gif" alt="">
     </div>
+    <div class="col-md-6 ">
+      
+      <div class=" border border-1 col-md-12 mx-auto  mt-5 p-5 border-start-2 border-warning border-end-0 border-top-0 border-bottom-0">
+        <div class="col-md-8 mx-auto container">
 
-    <div>
-      <input class="form-control mb-4" type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-      <!-- <label *ngIf="passwordInput.invalid">Please enter a valid password.</label> -->
+          <h3 class="text-center mb-4">Log In to your account</h3>
+        
+          <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+        
+            <div class=" mx-auto">
+              <input class="form-control mb-4" name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
+              <!-- <label *ngIf="emailInput.invalid">Please enter a valid email.</label> -->
+            </div>
+        
+            <div class=" mx-auto">
+              <input class="form-control mb-2" type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
+              <!-- <label *ngIf="passwordInput.invalid">Please enter a valid password.</label> -->
+            </div>
+        
+            <div  class=" fs-6 text-end mb-2" >
+              <div style="cursor: pointer; color: rgb(126, 78, 0);" (click)="onForgotPasswordClick()">Forgot Password?</div>
+            </div>
+        
+            <div style="width: 100%; display: flex; justify-content: center;">
+              <button class="btn btn-warning" type="submit" *ngIf="!isLoading">Login</button>
+            </div>
+        
+            <p class="mt-4 mb-2" >
+              or
+            </p>
+        
+            <div class="mb-4" style="width: fit-content;">
+              <button (click)="signInWithGoogle()" style="width: 60%; font-size: small; margin: auto;" type="submit" *ngIf="!isLoading" class="btn btn-light col-12 d-flex align-items-center">
+        
+                <img class="w-25 col-md-12" src="../../../assets/google.png"> <div class="d-flex">Login With Google</div>
+              </button>
+            </div>
+        
+          <div style="font-size: 
+          small;" >
+            Don’t have an account yet ?<button class="btn btn-light px-0 mx-2" style="font-size: small; width: fit-content;" (click)="onCreateAccountClick()">Create an Account</button>
+          </div>
+          
+          </form>
+        </div>
+        </div>
     </div>
-
-    <div  class=" fs-6 text-end " >
-      <div style="cursor: pointer; color: rgb(126, 78, 0);" (click)="onForgotPasswordClick()">Forgot Password?</div>
-    </div>
-
-    <div style="width: 100%; display: flex; justify-content: center;">
-      <button class="btn btn-warning" type="submit" *ngIf="!isLoading">Login</button>
-    </div>
-
-    <p class="mt-4 mb-2" >
-      or
-    </p>
-
-    <div class="mb-4"  style="width: 100%; display: flex; justify-content: center;">
-      <button (click)="signInWithGoogle()" type="submit" *ngIf="!isLoading" class="btn btn-light col-10 d-flex align-items-center">
-
-        <img class="w-25 d-flex" src="../../../assets/google.png"> <div class="d-flex">Login With Google</div>
-      </button>
-    </div>
-
-  <div >
-    Don’t have an account yet ?<button class="btn btn-light px-0 mx-2" (click)="onCreateAccountClick()">Create an Account</button>
   </div>
-  
-  </form>
 </div>

@@ -1,24 +1,45 @@
 <div>
     <div class="profileinfo">
 
+        <div class="grid row mt-5">
+            <div class="col-md-5">
+                <img src="../../../assets/profileblank.webp" style="display: flex; justify-content: end; width: 50%;" class="rounded-pill col-md-12 mx-auto" alt="">
+            </div>
+            <div style="position: relative;" class="col-md-7 border border-start-1 border-end-0 border-top-0 border-bottom-0">
+                <div class="container mx-5" >
 
-        <h2>Welcome {{getuser.username}}</h2>
-        <p>Email : {{getuser.email}} </p>
-        <p>Full Name : {{getuser.fullname}}</p>
-        <p>User Name : {{getuser.username}}</p>
-        <p>email verified : {{getuser.emailverified}}</p>
-      
-        <!-- <a [routerLink]="['/editprofile/',getuser.username]">edit profile</a> -->
-
-        <a [routerLink]="['/editprofile/',getuser.username]" >edit profile</a>
+                    <h5>{{getuser.username}}</h5>
+                    <!-- <p>Email : {{getuser.email}} </p> -->
+                    <p class="text-secondary m-0 mb-3">{{getuser.fullname}}</p>
+                    <span class="text-secondary">About Me?</span>
+                    <p> {{getuser.bio}}</p>
+                    <!-- <a [routerLink]="['/editprofile/',getuser.username]">edit profile</a> -->
+                    <!-- <span>following : {{getuser.following}}</span><br> -->
+                    <button class="btn disabled btn-dark mb-5">{{getuser.followers}} Followers</button>
+                    <div class=" mx-auto">
+                        <!-- <button *ngIf="getuser.username !== currentuser.username && getuser.following===false" (click)="onFollow()" style="position: absolute;bottom: 0; margin: auto;" class="btn btn-warning col-8">
+                            Follow
+                        </button> -->
+                        <button (click)="onFollow()" *ngIf="getuser.username !== currentuser.username && getuser.following==false" style="position: absolute;bottom: 0; margin:auto" style="background-color: rgb(255, 204, 0);" class="btn col-8">
+                            Follow
+                        </button>
+                        <button (click)="onUnfollow()" *ngIf="getuser.username !== currentuser.username && getuser.following!=false" style="position: absolute;bottom: 0; margin:auto" style="background-color: rgb(255, 145, 0);" class="btn col-8">
+                            Unfollow
+                        </button>
+                    </div>
+                </div>
+                <a *ngIf="getuser.username === currentuser.username" style="position: absolute; top: 0; right: 0; text-decoration: none; color: rgb(146, 146, 0);" [routerLink]="['/editprofile/',getuser.username]" > <i class="bi bi-pencil-fill fs-5"></i></a>
+            </div>
+        </div>
         <!-- (click)="onEditUser()" -->
 
     </div>
+    <app-comment [post]="post" (toggleCommentEvent)="onPostToggle($event,null)" *ngIf="postToggle"></app-comment>
     <div class="container mt-5">
         <div class="grid row col-10 text-center mx-auto">
             <div *ngFor="let post of posts" class="col-md-4">
-                <div class="container text-start border border-1 rounded-2 postitem">
-                    <img class="profilepic" src="../../../assets/profileblank.webp" alt="">
+                <div (click)="onPostToggle($event, post)" class="container mt-4 text-start border border-1 rounded-2 postitem">
+                    <img class="profilepic mt-2" src="../../../assets/profileblank.webp" alt="">
                     <span>{{post.username}}</span>
                     <img class="images" [src]="post.imagePath" alt="">
                     <p>{{post.content}}</p>

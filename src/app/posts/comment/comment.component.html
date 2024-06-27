@@ -1,61 +1,85 @@
 <div class="comment">
     <div (click)="onToggleComment()" class="exitbtn" style="margin: 2%;" >x</div>
-    <div id="reply-box">
-        <p>Comments</p>
-        <p class="info-text mat-body-1" *ngIf="comments.length<=0">No posts added yet!</p>
-        <div class="scrollablecomments" *ngIf="comments.length>0">
+    <div class="grid row">
+        <div class="col-md-6 mx-auto d-flex justify-content-center my-3">
+
+            <img class="mx-auto rounded-3" style="height: 640px; width:480px; object-fit: cover ; margin: auto;" [src]="post.imagePath" >
+        </div>
+        <div class="col-md-6 border border-start-1 border-top-0 border-bottom-0 border-end-0">
+            <h6 class="mt-2">&commat;{{post.username}}</h6>
             
-                <div class="d-flex justify-content-between border border-1 rounded-2 p-2 my-2"  *ngFor="let comment of comments">
-                    <div class="" style="width: fit-content;">
-
-                        <span class="username"><span>&commat;</span>{{comment.username}}</span> 
-
-                        <p class="">{{ comment.comment }}</p>
-                    </div>
-                    <div *ngIf=" userIsAuthenticated && comment.username===user.username" class="d-flex justify-content-between">
-                        <i  (click)="onClickDelete(comment.id)" class="bi bi-trash-fill"></i>
-
-                        <!-- <p>{{ comment.comment }}</p> -->
+            <div class="" style="">
+                <div class=" mt-2" id="reply-box">
+                    <p>Comments</p>
+                    <p class="info-text mat-body-1" *ngIf="comments.length<=0">No posts added yet!</p>
+                    <div class="scrollablecomments" *ngIf="comments.length>0">
                         
-
-                    </div>
-                    <!-- <div *ngIf=" user.username===comment.username">         
-                        <mat-icon class="delete">delete_outline</mat-icon>
-                    </div> -->
-
-                </div>
             
-                    <!-- <button mat-button color="primary">EDIT</button> -->
-                    <!-- (click)="OnDeletecomment(comment.id) -->
-                    <!-- <button mat-button color="warn">DELETE</button> -->
-              
-              
+                            <div class="d-flex justify-content-between border border-1 rounded-2 p-2 my-2"  *ngFor="let comment of comments">
+            
+                                <div class="" style="width: fit-content;">
+            
+                                    <span class="username"><span>&commat;</span>{{comment.username}}</span> 
+            
+                                    <p class="">{{ comment.comment }}</p>
+                                </div>
+                                <div *ngIf=" userIsAuthenticated && comment.username===user.username" class="d-flex justify-content-between">
+                                    <i  (click)="onClickDelete(comment.id)" class="bi bi-trash-fill"></i>
+            
+                                    <!-- <p>{{ comment.comment }}</p> -->
+                                    
+            
+                                </div>
+                                <!-- <div *ngIf=" user.username===comment.username">         
+                                    <mat-icon class="delete">delete_outline</mat-icon>
+                                </div> -->
+            
+                            </div>
+                        
+                                <!-- <button mat-button color="primary">EDIT</button> -->
+                                <!-- (click)="OnDeletecomment(comment.id) -->
+                                <!-- <button mat-button color="warn">DELETE</button> -->
+                          
+                          
+                            </div>
                 </div>
-                <form (submit)="PostComment(commnetForm)" #commnetForm="ngForm">
-                <div class="grid row"  style="display: flex;">
-                    <div class="col-md-9">
-                        <textarea
-                        name="comment"
-                        class="form-control"
-                        ngModel
-                        required
-                        placeholder="Comment..."
-                        no-resize
-                        style="resize: none;"
-                        #comment="ngModel"></textarea>
-                    </div>
-                    <div class="col-md-3">
-                        <button
-                        class="btn btn-warning col-12"
-                        style="height: 100%;"
-                        type="submit" >
-                            send
-                        </button>
-                    </div>
-                
-                
+                <div style="bottom: 0;">
+                    <form class="col-md-6" (submit)="PostComment(commnetForm)" #commnetForm="ngForm">
+                        <div class="grid row col-md-12"  style="display: flex; position: absolute; bottom: 0; margin-bottom: 2rem; width: inherit;">
+                                    <div class="d-block mx-2 col-12" style="height: fit-content;">
+
+                                        <div style="position: relative; display: block; width: inherit; height: fit-content; word-wrap: break-word; color: rgb(95, 95, 95);" class="">
+                                            {{post.content}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <textarea
+                                        name="comment"
+                                        class="form-control"
+                                        ngModel
+                                        required
+                                        placeholder="Comment..."
+                                        no-resize
+                                        style="resize: none;"
+                                        #comment="ngModel"></textarea>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button
+                                        class="btn btn-warning col-12"
+                                        style="height: 100%;"
+                                        type="submit" >
+                                            send
+                                        </button>
+                                    </div>
+                                
+                                
+                                </div>
+                                </form>
                 </div>
-                </form>
+            </div>
+                
+        </div>
     </div>
+  
     
 </div>

@@ -3,10 +3,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserToken=require('../models/UserToken')
 const User = require("../models/user");
+const Follower = require("../models/follower");
 const cookies = require('cookie-parser')
 const router = express.Router();
 const nodemailer=require('nodemailer')
 const multer = require("multer");
+const user = require("../models/user");
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
@@ -66,21 +68,28 @@ router.post(
   });
 });
 
-router.get('/profile/:username?',async (req,res,next)=>{
+router.get('/profile/:username?/:currentUsername?',async (req,res,next)=>{
   const username=req.params.username
+  const currentUsername=req.params.currentUsername
+  console.log(username,currentUsername)
   if(username){
 
     console.log('username : ',username)
     const user=await User.findOne({username})
+    const isFollowed = await Follower.findOne({followedTo: username,followedBy:currentUsername})
+    console.log('user :',user)
     const userData = {
-      id : user.id,
+      id : user._id,
       email : user.email,
       username : user.username,
       dob : user.dob,
       fullname : user.fullname,
-      emailverified : user.emailverified
+      emailverified : user.emailverified,
+      bio : user.bio,
+      followers : user.followers?user.followers:0,
+      following: isFollowed?true:false  
     }
-    res.status(200).json({message : 'Fetched User Profile', user : userData})
+    res.status(200).json({message : 'Fetched User Profile', user : userData })
   }
   else{
 
@@ -88,7 +97,16 @@ router.get('/profile/:username?',async (req,res,next)=>{
       if (err) throw err
       console.log("User fetched" , userData)
       res.json({message: "User Fetched",
-        user:userData
+        user:{
+          id : userData.userId,
+          username : userData.username,
+          dob : userData.dob,
+          fullname : userData.fullname,
+          emailverified : userData.emailverified,
+          email : userData.email,
+          bio : userData.bio,
+          followers : userData.followers
+        }
       })
     })
   }
@@ -217,6 +235,77 @@ router.post("/login", (req, res, next) => {
     });
 });
 
+router.put('/updateuser/:userId',async (req,res,next)=>{
 
+  // const currentUser = await User.findOne({_id : req.params.userId})
+
+  const updateUser={
+    username : req.body.username,
+    dob :  req.body.dob,
+    fullname : req.body.fullname,
+    bio : req.body.bio,
+  }
+  
+  const user = await User.findOneAndUpdate({_id : req.params.userId},updateUser)
+
+
+  res.json({message:'user updated successfully',response :{
+    id : user._id,
+    username : user.username,
+    fullname : user.fullname,
+    dob : user.dob,
+    bio : user.bio,
+    email : user.email,
+    emailverified : user.emailverified
+  }})
+
+})
+
+router.put('/follow/:followUser',async(req,res,next)=>{
+  const followUser=req.params.followUser
+  console.log(req.body.username)
+  const user=await User.findOne({username : followUser})
+  let followers = (user.followers?user.followers:1)
+  followers++
+  const updatedUser=await User.findOneAndUpdate({username: followUser},{followers : followers})
+  const registerFollow= new Follower({
+    followedTo: followUser,
+    followedBy : req.body.username
+  })
+  registerFollow.save()
+  .then(()=>{
+
+    res.json({user : {
+      _id: updatedUser._id,
+      email: updatedUser.email,
+      dob : updatedUser.dob,
+      fullname : updatedUser.fullname,
+      username : updatedUser.username,
+      followers : updatedUser.followers,
+      following : true
+    }, follow : registerFollow})
+  })
+})
+
+router.put('/unfollow/:followUser',async(req,res,next)=>{
+  const followUser=req.params.followUser
+  console.log(req.body.username)
+  const user=await User.findOne({username : followUser})
+  let followers = (user.followers?user.followers:1)
+  followers--
+  const updatedUser=await User.findOneAndUpdate({username: followUser},{followers : followers})
+  const deleteFollow=await Follower.deleteOne({followedBy : req.body.username, followedTo : followUser})
+  res.json({user : {
+    _id: updatedUser._id,
+    email: updatedUser.email,
+    dob : updatedUser.dob,
+    fullname : updatedUser.fullname,
+    username : updatedUser.username,
+    followers : updatedUser.followers,
+    following : false
+  },delete : deleteFollow})
+  
+  
+})
 
 module.exports = router;

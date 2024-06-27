@@ -1,3 +1,4 @@
+
 .comment{
     /* position: absolute; */
     padding: 0 2% ;
@@ -5,8 +6,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 50%;
+    width: 80%;
+    height: 90%;
     box-shadow: 1px 1px 5px #3a1b02a2;
     border-radius: 10px;
     /* border-radius: 10px; */
@@ -22,7 +23,7 @@
 .scrollablecomments{
     /* height: 50%; */
     /* overflow: scroll; */
-    height: 300px;
+    height: 22rem;
     overflow: scroll;
     overflow-x: hidden;
 }

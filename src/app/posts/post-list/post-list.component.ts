@@ -30,6 +30,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   liked=false
   likedIcon='border'
   likecount : string
+  post: any;
   constructor(public postsService: PostsService, private authService: AuthService,private router : Router) {
     
   }
@@ -60,11 +61,11 @@ export class PostListComponent implements OnInit, OnDestroy {
    
     }
 
-  onCommentToggle(event : any,postId : string){
+  onCommentToggle(event : any,post : string){
     if(!this.commentToggle){
 
       this.commentToggle=event
-      this.postId = postId
+      this.post = post
     }else{
       this.commentToggle=false
     }

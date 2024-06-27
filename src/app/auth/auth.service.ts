@@ -13,6 +13,11 @@ export class AuthService {
  resetToken=''
  profile : any
  getUser=new Subject()
+ followUser=new Subject()
+ onfollowCount=new Subject()
+ 
+ onunfollowCount=new Subject()
+ unfollowUser=new Subject()
  load =0
  user:any
  //imagePath:string;
@@ -75,20 +80,21 @@ export class AuthService {
   }
 
 fetchProfile(){
-  
-  this.http.get<{ message: string; user: any }>("http://localhost:3000/api/user/profile")
+  // const data = {  
+  this.http.get<{ message: string; user: any }>("http://localhost:3000/api/user/profile",)
   .pipe(
     map(userData => {
       // return userData.user.map((user: { username: any; email: any; _id: any;fullname: any}) => {
         return {
           // title: post.title,
+          id: userData.user.id,
           username: userData.user.username,
-          id: userData.user._id,
           email: userData.user.email,
           fullname : userData.user.fullname,
           emailverified : userData.user.emailverified,
           dob:userData.user.dob,
-          imagePath:userData.user.imagePath
+          // imagePath:userData.user.imagePath,
+          bio:userData.user.bio
         };
       })
     // })
@@ -102,7 +108,7 @@ fetchProfile(){
 
 setProfile(userData){
   this.profile=userData
-  console.log(this.profile)
+  // console.log(this.profile)
   
 }
 getProfile(){
@@ -110,13 +116,14 @@ getProfile(){
   if(cookie){
 
     this.profile=JSON.parse(cookie)
-    console.log(this.profile)
+    // console.log(this.profile)
   }
   return this.profile
   
 }
 getUsers(username:string){
-  this.http.get<{ message: string; user: any }>("http://localhost:3000/api/user/profile/"+username)
+  const currentUser=this.getProfile()
+  this.http.get<{ message: string; user: any }>("http://localhost:3000/api/user/profile/"+username+"/"+currentUser.username)
   .pipe(
     map(userData => {
       // return userData.user.map((user: { username: any; email: any; _id: any;fullname: any}) => {
@@ -127,7 +134,10 @@ getUsers(username:string){
           email: userData.user.email,
           fullname : userData.user.fullname,
           emailverified : userData.user.emailverified,
-          dob:userData.user.dob
+          dob:userData.user.dob,
+          bio:userData.user.bio,
+          followers: userData.user.followers,
+          following : userData.user.following
         };
       })
     // })
@@ -135,6 +145,7 @@ getUsers(username:string){
     .subscribe(userData=> {
       // this.profile = userData.user
       // this.cookieService.set('getuser',JSON.stringify(userData))
+      // console.log(userData.bio)
       this.getUser.next(userData)
       
     });
@@ -161,7 +172,7 @@ clearuserscookie(){
           // this.saveAuthData(token);
           this.load=0
        
-          console.log(this.user)
+          // console.log(this.user)
           this.router.navigate(["/home"]).then(()=>{
             window.location.reload()
           });
@@ -232,8 +243,51 @@ const token=this.router.url
   });
   }
 
-  updateUser(fullname:string, username: string, dob:string ){
-
+  updateUser(id:string,fullname:string, username: string, dob:string , bio: string){
+    const currentuser=this.getProfile()
+    // console.log(currentuser)
+    const data = {
+      userId : id,
+      fullname : fullname,
+      username : username,
+      dob : dob,
+      bio:bio
+    }
+    // console.log(currentuser)
+    this.http.put("http://localhost:3000/api/user/updateuser/"+currentuser.id,data)
+    .subscribe()
   }
-  
+
+  onFollow(currentUser,followUser){
+    const currentUsers=this.getProfile()
+    const data={username: currentUsers.username}
+    this.http.put<{user:any}>("http://localhost:3000/api/user/follow/"+followUser,data)
+    .subscribe(data=>{
+      this.followUser.next(data)
+      this.onfollowCount.next(data.user.followers)
+    })
+  }
+  onFollowListener(){
+    return this.followUser.asObservable()
+  }
+  onUnfollow(currentUser,followUser){
+    const currentUsers=this.getProfile()
+    const data={username: currentUsers.username}
+    this.http.put<{user:any}>("http://localhost:3000/api/user/unfollow/"+followUser,data)
+    .subscribe(follow=>{
+      // console.log(follow.user.following)
+      this.unfollowUser.next(follow.user.following)
+      this.onunfollowCount.next(follow.user.followers)
+    })
+    
+  }
+  onUnfollowListener(){
+    return this.unfollowUser.asObservable()
+  }
+  getOnFollowersCount(){
+    return this.onfollowCount.asObservable()
+  }
+  getOnUnFollowersCount(){
+    return this.onunfollowCount.asObservable()
+  }
 }

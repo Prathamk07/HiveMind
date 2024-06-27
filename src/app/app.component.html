@@ -5,8 +5,70 @@
 
   <div>
     <!-- <div class="content mat-elevation-z8"> -->
-      <div   class="container">
+      <div *ngIf="logged"  class="rounded-0 shadow d-none d-lg-block -rounded-5 mt-5 px-3" style="position: fixed; left: 0; top:0; width: 300px; background-color: rgb(255, 247, 220); height: 100vh;">
+        <div style="  background-color: rgb(255, 255, 255); border: rgba(255, 255, 0, 0.344);
+    " class=" my-5 p-2 rounded-4 border border-1 text-start">
+            <ul class="text-start" style="list-style-type: none; ">
+                <li>
+                    <a [routerLink]="['/home']" style="text-decoration: none; color: black; cursor: pointer;">
 
+                    <div class="sidelink p-2 mt-3 col-10 d-flex justify-content-start">
+                        <i class="bi bi-file-image fs-4 mr-3"></i>
+                        <span class="mx-3 my-auto">
+                            Feed
+                        </span> 
+                    </div>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/posts']" style="text-decoration: none; color: black; cursor: pointer;">
+
+                    <div class="sidelink p-2 mt-3 col-10 d-flex justify-content-start">
+                        <i class="bi bi-file-plus fs-4 mr-3"></i>
+                        <span class="mx-3 my-auto">
+                            Create Post
+
+                        </span>
+                    </div>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/messages']" style="text-decoration: none; color: black; cursor: pointer;">
+                    <div class="sidelink p-2 mt-3 col-10 d-flex justify-content-start">
+
+                        <i class="bi bi-chat-square-dots fs-4 mr-3"></i>
+                       <span class="mx-3 my-auto">
+                           Messages
+                       </span>
+                    </div>
+                </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/profile/',user.username]" style="text-decoration: none; color: black; cursor: pointer;">
+                <div class="sidelink p-2 mt-3 col-10 d-flex justify-content-start">
+                        <i class="bi bi-person fs-4 mr-3 "></i>
+                        <span class="mx-3 my-auto">
+
+                            Profile
+                        </span>
+                    </div>
+                </a>
+                </li>
+                <li>
+                    <a style="text-decoration: none; color: black; cursor: pointer;">
+                    <div (click)="onLogout()" class="sidelink p-2 mt-3 col-10 d-flex justify-content-start">
+                            <i class="bi bi-box-arrow-left fs-4 mr-3"></i>
+                            <span class="mx-3 my-auto">
+    
+                                Logout
+                            </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        </div>
+      <div class="container col-9">
         <router-outlet></router-outlet>
       <!-- </div> -->
     </div>

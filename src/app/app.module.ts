@@ -29,6 +29,7 @@ import { CommentComponent } from './posts/comment/comment.component';
 
 import { MessagesComponent } from './chat/messages/messages.component';
 import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
+import { UsernameComponent } from './chat/username/username.component';
 // import { ChattingComponent } from './chatting/chatting.component';
 
 // import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
@@ -58,6 +59,7 @@ import { EditProfileComponent } from './auth/edit-profile/edit-profile.component
     // ChattingComponent,
 
     EditProfileComponent,
+    UsernameComponent,
     // ThemeProvider,
     
     // NgModel,
