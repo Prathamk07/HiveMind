@@ -4,5 +4,6 @@ export interface Post {
   username :string;
   content: string;
   imagePath: string;
-  likes:string
+  likes:string 
 }
+ 
