@@ -86,6 +86,7 @@ router.get('/profile/:username?/:currentUsername?',async (req,res,next)=>{
       fullname : user.fullname,
       emailverified : user.emailverified,
       bio : user.bio,
+      imagePath : user.imagePath,
       followers : user.followers?user.followers:0,
       following: isFollowed?true:false  
     }
@@ -105,12 +106,19 @@ router.get('/profile/:username?/:currentUsername?',async (req,res,next)=>{
           emailverified : userData.emailverified,
           email : userData.email,
           bio : userData.bio,
+          imagePath : userData.imagePath,
           followers : userData.followers
         }
       })
     })
   }
 })    
+
+router.get('/allusers',async (req,res,next)=>{
+  const users=await User.find()
+  res.status(200).json({message : 'Fetched All Users', users : users})
+  //res.json({message:"all User fatched", users: users})
+})
 
 router.post('/forgotpassword',async (req,res,next)=>{
   const email = req.body.email;
@@ -235,15 +243,21 @@ router.post("/login", (req, res, next) => {
     });
 });
 
-router.put('/updateuser/:userId',async (req,res,next)=>{
-
-  // const currentUser = await User.findOne({_id : req.params.userId})
-
+router.put(
+  '/updateuser/:userId',
+  multer({ storage: storage }).single("image"),
+  async (req,res,next)=>{
+    let imagePath = req.body.imagePath;
+    if (req.file) {
+      const url = req.protocol + "://" + req.get("host");
+      imagePath = url + "/images/" + req.file.filename;
+    }
   const updateUser={
     username : req.body.username,
     dob :  req.body.dob,
     fullname : req.body.fullname,
     bio : req.body.bio,
+    imagePath : imagePath
   }
   
   const user = await User.findOneAndUpdate({_id : req.params.userId},updateUser)
@@ -255,6 +269,7 @@ router.put('/updateuser/:userId',async (req,res,next)=>{
     fullname : user.fullname,
     dob : user.dob,
     bio : user.bio,
+    imagePath : user.imagePath,
     email : user.email,
     emailverified : user.emailverified
   }})

@@ -7,3 +7,9 @@
     border-radius: 10px;
     
 }
+.profilepic{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    /* margin-top: 5%; */
+}

@@ -54,7 +54,7 @@ export class ProfileComponent {
     this.authService.getUsers(this.username)
     this.getUserSub=this.authService.getUserProfile().subscribe(data=>{
       this.getuser=data
-      //  console.log(this.getuser)
+        console.log(this.getuser)
       // this.username = this.getuser.username
       // this.fullname=this.getuser.fullname
       // this.email=this.getuser.email

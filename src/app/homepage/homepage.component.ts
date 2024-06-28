@@ -13,6 +13,8 @@ export class HomepageComponent {
   @Output() authEvent = new EventEmitter<boolean>();
   user:any
   userList : []
+  isLoading = false;
+
 constructor(private authService:AuthService,private router: Router){
   
   if(!this.authService.getIsAuth){
@@ -29,6 +31,13 @@ ngOnInit(): void {
   //Add 'implements OnInit' to the class.
   this.user=this.authService.getProfile()
   this.userList = []
+
+  this.authService.getallUser();
+  this.authService.getallUsers().subscribe(data=>{
+    this.isLoading = false;
+    this.user=data;
+    console.log(this.user)
+    })
 }
 
 

@@ -78,34 +78,9 @@
     padding: 1%;
   }
 
-.inputfile{
-    width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	z-index: -1;
-}
 
-.inputfile + label {
-    display: inline-block;
-    cursor: pointer;
-    background-color: #ededed;
-    width: 75%;
-    text-align: center;
-    margin-top: 9px;
-    border-radius: 16px;
-    transition: 0.1s;
-}
 
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: #7b7979;
-    color: white;
-}
 
-.upload-image{
-    border-radius: 15px;
- }
 /* 
     display: block;
     min-width: 120px;
@@ -117,3 +92,16 @@
     padding: 7px;
   } */
 
+.imageinput[type="file"]{
+    visibility: hidden;
+}
+
+.image-preview {
+    height: 12rem;
+    margin: 1rem 0;
+}
+
+.image-preview img {
+
+    height: 100%;
+}

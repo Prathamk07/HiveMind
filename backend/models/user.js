@@ -8,8 +8,8 @@ const userSchema = mongoose.Schema({
   dob: String,
   fullname : String,
   emailverified : Boolean,
-  imagePath:{type:String,require:true},
-  bio:String,
+  imagePath : String,
+  bio : String,
   followers : Number
 
 });

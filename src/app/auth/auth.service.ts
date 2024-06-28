@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-
 // import { AuthData } from "./auth-data.model";
 import { Subject, map } from "rxjs";
 import { Router } from "@angular/router";
@@ -13,9 +12,9 @@ export class AuthService {
  resetToken=''
  profile : any
  getUser=new Subject()
+ Users=new Subject();
  followUser=new Subject()
  onfollowCount=new Subject()
- 
  onunfollowCount=new Subject()
  unfollowUser=new Subject()
  load =0
@@ -28,6 +27,10 @@ export class AuthService {
 
  private authStatusListener = new Subject<boolean>();
   userData: any;
+  users: {
+    // title: post.title,
+    username: any; id: any;
+  };
 
   constructor(private http: HttpClient, private router: Router, private cookieService : CookieService) {
     if(cookieService.get('token')){
@@ -53,14 +56,14 @@ export class AuthService {
 
 
 
-  createUser(email: string, password: string,fullname:string,dob:string,username:string,image:File) {
+  createUser(email: string, password: string,fullname:string,dob:string,username:string,imagePath:string) {
     const authData= {
       email: email, 
       password:password, 
       fullname:fullname, 
       dob:dob, 
       username:username, 
-      image:image, 
+      image:imagePath, 
       emailverified:false};
 
     //post send req to backend (api/user/signup accept request)
@@ -87,14 +90,14 @@ fetchProfile(){
       // return userData.user.map((user: { username: any; email: any; _id: any;fullname: any}) => {
         return {
           // title: post.title,
-          id: userData.user.id,
+          id : userData.user.id,
           username: userData.user.username,
-          email: userData.user.email,
+          email : userData.user.email,
           fullname : userData.user.fullname,
           emailverified : userData.user.emailverified,
-          dob:userData.user.dob,
-          // imagePath:userData.user.imagePath,
-          bio:userData.user.bio
+          dob : userData.user.dob,
+          imagePath : userData.user.imagePath,
+          bio : userData.user.bio
         };
       })
     // })
@@ -136,6 +139,7 @@ getUsers(username:string){
           emailverified : userData.user.emailverified,
           dob:userData.user.dob,
           bio:userData.user.bio,
+          imagePath:userData.user.imagePath,
           followers: userData.user.followers,
           following : userData.user.following
         };
@@ -243,19 +247,51 @@ const token=this.router.url
   });
   }
 
-  updateUser(id:string,fullname:string, username: string, dob:string , bio: string){
+  updateUser(id:string,fullname:string, username: string, dob:string , bio: string,image: File | string){
     const currentuser=this.getProfile()
+    const data = new FormData();
+    data.append('id', id);
+    data.append('fullname', fullname);
+    data.append('username', username);
+    data.append('dob', dob);
+    data.append('bio', bio);
+    data.append('image', image);
+     console.log(data)
     // console.log(currentuser)
-    const data = {
-      userId : id,
-      fullname : fullname,
-      username : username,
-      dob : dob,
-      bio:bio
-    }
     // console.log(currentuser)
     this.http.put("http://localhost:3000/api/user/updateuser/"+currentuser.id,data)
     .subscribe()
+  }
+
+  getallUser(){
+    this.http
+    .get<{ message: string; users: any }>("http://localhost:3000/api/user/allusers")
+    .pipe(
+      map(userData => {
+        return userData.users.map((user: { username: any; email: any; _id: any;fullname: any,imagePath:string}) => {
+          return {
+            // title: post.title,
+            email: user.email,
+            username: user.username,
+            id: user._id,
+            imagePath:user.imagePath,
+
+          };
+        })
+      })
+    )
+      .subscribe(userData=> {
+        this.users=userData
+        console.log(userData)
+        // this.profile = userData.user
+        // this.cookieService.set('getuser',JSON.stringify(userData))
+        this.Users.next(userData)
+        
+      });
+  }
+
+  getallUsers() {
+    return this.Users.asObservable();
   }
 
   onFollow(currentUser,followUser){

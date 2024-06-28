@@ -3,8 +3,9 @@
 
         <div class="grid row mt-5">
             <div class="col-md-5">
-                <img src="../../../assets/profileblank.webp" style="display: flex; justify-content: end; width: 50%;" class="rounded-pill col-md-12 mx-auto" alt="">
+                <img [src]="getuser.imagePath" style="display: flex; justify-content: end; width: 50%;" class="profilepic col-md-12 mx-auto" alt="">
             </div>
+            
             <div style="position: relative;" class="col-md-7 border border-start-1 border-end-0 border-top-0 border-bottom-0">
                 <div class="container mx-5" >
 
@@ -39,7 +40,7 @@
         <div class="grid row col-10 text-center mx-auto">
             <div *ngFor="let post of posts" class="col-md-4">
                 <div (click)="onPostToggle($event, post)" class="container mt-4 text-start border border-1 rounded-2 postitem">
-                    <img class="profilepic mt-2" src="../../../assets/profileblank.webp" alt="">
+                    <img class="postpic mt-2" src="../../../assets/profileblank.webp" alt="">
                     <span>{{post.username}}</span>
                     <img class="images" [src]="post.imagePath" alt="">
                     <p>{{post.content}}</p>
