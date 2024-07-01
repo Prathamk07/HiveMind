@@ -14,10 +14,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
   authListenerSubs:boolean
 loggedin=false
 user:any;
+searchuname: string='';
+
   constructor(private authService: AuthService,private observer: BreakpointObserver, private router: Router){
     // window.location.reload()
   }
   ngOnInit(): void {
+
     this.userIsAuthenticated=this.authService.getIsAuth()
     this.user=this.authService.getProfile()
     console.log('current user',this.user)
@@ -29,10 +32,18 @@ user:any;
       // window.location.reload()
       // location.reload()
     }
+    this.authService.getallUser();
+    this.authService.getallUsers().subscribe(data=>{
+      this.user=data;
+      console.log(this.user)
+  })
+
     
     
   
   }
+
+  
 
   onLogout(){
     this.authService.logout();

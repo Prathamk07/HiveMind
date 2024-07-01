@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const Comment = require("../models/comment")
 const Post = require("../models/post");
+const Like = require("../models/like")
 // const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 
@@ -163,6 +164,23 @@ router.delete("/:id", (req, res, next) => {
     res.status(200).json({ message: "Post deleted!" });
   });
 });
+
+router.put('/like/:id',async (req,res,next)=>{
+  console.log(req.params.id)
+  const username=req.body.username
+  const post = await Post.findOne({_id : req.params.id})
+  updatedLike = post.likes?post.likes:0;
+  updatedLike++
+  const updatedPost=await Post.findOneAndUpdate({_id:req.params.id},{likes : updatedLike})
+  const registerLike = new Like({
+    postId : req.params.id,
+    likedby : username,
+  }).save().then(data=>{
+    // console.log(req.body)
+    res.json({updatedPost:updatedPost,like: data})
+  })
+  
+})
 
 
   

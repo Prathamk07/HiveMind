@@ -39,7 +39,7 @@
 
             <!-- <mat-icon class="action-item"  id="likeIcon" color="Basic">favorite_{{likedIcon}}</mat-icon> -->
             <i class="d-block text-align-center text-danger fs-5" [ngClass]="liked?'bi bi-heart-fill':'bi bi-heart'" (click)="likeToggle(post.id)"></i>
-            <span id="likecount">{{likecount}}</span>
+            <span id="likecount">{{post.likes}}</span>
           </div>
           <!-- <mat-icon class="action-item"  color="Basic">chat_bubble_outline</mat-icon> -->
           <i class="bi bi-chat mx-1 fs-5" (click)="onCommentToggle(true,post)"></i>

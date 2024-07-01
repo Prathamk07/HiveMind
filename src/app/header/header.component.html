@@ -73,37 +73,30 @@
                     <div class="container-fluid text-white ">
     <a class="navbar-brand" href="#"><img src="../../assets/hivemindpng.png" width="150" alt=""></a>
     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-links" *ngIf="loggedin" href="/posts" aria-current="page" >Create Post</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-links" *ngIf="loggedin" [routerLink]="['/messages']" aria-current="page" >Messages</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-links" style="cursor: pointer;" *ngIf="loggedin" (click)="onLogout()">Logout</a>
-        </li>
-        <li *ngIf="loggedin" class="nav-item dropdown">
-          <a class="nav-links dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Menu
-          </a>
-          <ul   class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['/profile/',user.username]">Profile</a></li>
-            <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
-            <!-- <li><hr class="dropdown-divider"></li> -->
-            <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+   
+    
+      <div>
+        <li *ngIf="loggedin" class="nav-item dropdown d-flex">
+
+          <input [(ngModel)]="searchuname" class="form-control me-2" type="text" placeholder="Search" aria-label="Search" data-bs-toggle="dropdown">
+          
+          <ul class="dropdown-menu">
+            <li class="dropdown-item">
+              <div  *ngFor="let item of user |filterpipe :searchuname" class="dropdown-item">
+                <p class="user" style="text-align: left;">
+                    <img class="profilepic" src="../../../assets/profileblank.webp" alt="">
+                    <a class="text-decoration-none text-black " [routerLink]="['/profile/',item.username]">
+                      {{item.username }}
+                    </a>
+                    
+                  </p>
+                  
+                </div>
+            </li>
           </ul>
-        </li>
-       
-        </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-black bg-warning-subtle" type="submit"><i class="bi bi-search"></i></button>
-      </form>
+    
+          </li>
+
     </div>
   </div>
 </nav>

@@ -6,6 +6,13 @@ nav{
   text-decoration: none;
   z-index: 800;
 }
+.profilepic{
+  width: fit-content;
+  height: 30px;
+  border-radius: 100%;
+  /* margin-top: 5%; */
+}
+
 .nav-links{
   text-decoration: none;
   color: black;

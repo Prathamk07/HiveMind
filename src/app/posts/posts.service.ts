@@ -214,7 +214,7 @@ export class PostsService {
                     onPostLike(postId:string,username:string){
                       console.log('liked by :',username,postId)
                       const likeData={postId:postId, username:username}
-                      this.http.post<{message:string,likedby:any}>("http://localhost:3000/api/like/" + postId, likeData)
+                      this.http.put<{message:string,likedby:any}>("http://localhost:3000/api/posts/like/" + postId, {username})
                       // .pipe(
                         //   map(responseData=>{
                           //     return responseData.likedby.map((likes:{postId:any , _id:any, likedby:any })=>{

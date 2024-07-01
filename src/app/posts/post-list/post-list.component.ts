@@ -48,12 +48,12 @@ export class PostListComponent implements OnInit, OnDestroy {
         console.log(this.posts)
       });
       this.postsService.getPostLike();
-      this.likeSub=this.postsService.getLikeUpdateListener()
-      .subscribe((likes:any)=>{
-        this.likecount=likes.length
+      // this.likeSub=this.postsService.getPostUpdateListener()
+      // .subscribe((data:any)=>{
+      //   this.likecount=data
         
-        console.log('Likes : ',likes)
-      })
+      //   console.log('Likes : ',this.likecount)
+      // })
       if(this.userIsAuthenticated===false){
         this.router.navigate(['login'])
       }

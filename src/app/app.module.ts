@@ -30,6 +30,7 @@ import { CommentComponent } from './posts/comment/comment.component';
 import { MessagesComponent } from './chat/messages/messages.component';
 import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
 import { UsernameComponent } from './chat/username/username.component';
+import { FilterpipePipe } from './header/filterpipe.pipe';
 // import { ChattingComponent } from './chatting/chatting.component';
 
 // import { EditProfileComponent } from './auth/edit-profile/edit-profile.component';
@@ -60,6 +61,7 @@ import { UsernameComponent } from './chat/username/username.component';
 
     EditProfileComponent,
     UsernameComponent,
+    FilterpipePipe,
     // ThemeProvider,
     
     // NgModel,
